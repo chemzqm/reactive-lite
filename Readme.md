@@ -6,10 +6,15 @@ Simplified reactive component, no sucks api need to remember, bind model like th
 
 * **inter** <span>{first} {last}</span>
 * **format** `<div data-format="formatMoney"></div>` with function like:
-`function() { return '$' + this.money }`, the function is reuseable
+``` js
+function() { return '$' + this.money }
+```
+the function is reuseable.
 
 * **render** `<div data-render="checkActive" >Show on active</div>` with function like
-`function(el) { el.style.display = this.active?'block': 'none'}`
+``` js
+function(el) { el.style.display = this.active?'block': 'none'}
+```
 
 * **attr-interpolation** `<a data-href="http://github.com/{uid}">{name}</a>`
 * **event binding** `<button on-click="onBtnClick">click me</button>`
