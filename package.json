@@ -39,7 +39,6 @@
     "webpack-dev-server": "^1.12.1"
   },
   "browser": {
-    "classes": "component-classes",
     "tap-event": "component-tap-event",
     "event": "component-event",
     "emitter": "component-emitter",
@@ -47,7 +46,6 @@
   },
   "dependencies": {
     "array-unique": "^0.2.1",
-    "component-classes": "^1.2.4",
     "component-emitter": "^1.2.0",
     "component-event": "^0.1.4",
     "component-tap-event": "^1.0.0",
