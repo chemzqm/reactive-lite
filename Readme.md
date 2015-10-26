@@ -27,7 +27,7 @@ TODO: test
 
 ## Usage
 
-```
+``` js
 var reactive = require('reactive-lite')
 var template = require('./template.html')
 var domify = require('domify')
@@ -40,7 +40,7 @@ document.body.appendChild(reactive.el)
 ### Reactive(el, model, [delegate])
 
 * `el` could be element or html template string
-* `model` contains attributes for binding to the element, should emit `change *name*` event to notify reactive instance
+* `model` contains attributes for binding to the element, should emit `change [name]` event to notify reactive instance
 * `delegate` is optional object contains event handler and/or format and render function, reactive would try to find format and render on the model first
 
 ### .remove()
