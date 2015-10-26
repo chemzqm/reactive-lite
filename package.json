@@ -1,0 +1,56 @@
+{
+  "name": "radio-component",
+  "version": "0.0.1",
+  "description": "radio element className",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemzqm/radio.git"
+  },
+  "keywords": [
+    "radio"
+  ],
+  "author": "chemzqm@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chemzqm/radio/issues"
+  },
+  "homepage": "https://github.com/chemzqm/radio#readme",
+  "devDependencies": {
+    "connect-livereload": "^0.5.3",
+    "coveralls": "^2.11.4",
+    "gulp": "^3.9.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-serve": "^1.2.0",
+    "gulp-util": "^3.0.7",
+    "karma": "^0.13.14",
+    "karma-cli": "^0.1.1",
+    "karma-coverage": "^0.5.3",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.2.0",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.3",
+    "mocha-loader": "^0.7.1",
+    "model-component": "^1.0.1",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "browser": {
+    "classes": "component-classes",
+    "tap-event": "component-tap-event",
+    "event": "component-event",
+    "emitter": "component-emitter",
+    "model": "model-component"
+  },
+  "dependencies": {
+    "array-unique": "^0.2.1",
+    "component-classes": "^1.2.4",
+    "component-emitter": "^1.2.0",
+    "component-event": "^0.1.4",
+    "component-tap-event": "^1.0.0",
+    "domify": "^1.4.0"
+  }
+}

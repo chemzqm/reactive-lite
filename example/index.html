@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body {
+      padding: 100px;
+    }
+    #user {
+      widht: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="user">
+    <input type="text" on-input="changeName">
+    <div data-id="{id}">{first} {last}</div>
+    <div data-format="formatMoney"></div>
+    <div>
+      <input type="checkbox" name="active" data-checked="active" on-change="toggleStat"/> active
+    </div>
+    <div>
+      <select name="country" id="country" class="select">
+        <option value="">---</option>
+        <option value="America" data-selected="country">America</option>
+        <option value="Canda" data-selected="country">Canda</option>
+        <option value="China" data-selected="country">China</option>
+      </select>
+    </div>
+    <div><a data-href="http://localhost:3000/{id}">user {id}</a></div>
+    <div data-render="checkStat">hide when stat is false</div>
+    <button on-click="addMoney">add money</button>
+  </div>
+  <script src="./bundle.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
