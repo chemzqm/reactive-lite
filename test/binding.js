@@ -38,14 +38,14 @@ describe('#binding', function () {
   })
 
   it('should add binding', function () {
-    var format = model.format = function () {
-      return this.first + ' ' + this.last
+    model.render = function (model, el) {
+      el.textContent =  'hi, ' + model.first + model.last
     }
     var reactive = new Reactive(el, model)
     var binding = new Binding(reactive)
-    binding.add('data-format', 'format')
+    binding.add('data-render', 'render')
     binding.active(el)
-    assert.equal(el.textContent, format.call(model))
+    assert.equal(el.textContent, 'hi, ' + model.first + model.last)
   })
 
   it('should active all bindings', function () {
