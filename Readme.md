@@ -2,9 +2,24 @@
 
 [![Build Status](https://secure.travis-ci.org/chemzqm/reactive-lite.png)](http://travis-ci.org/chemzqm/reactive-lite)
 
-Simplified reactive component,, bind model like this:
+This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
 
-* **interpolate** <span>{first} {last}</span>
+## Features
+
+* Flexible binding fashion, including text-interpolation, format and render for different usage
+* Bind attribute (especially `src` `herf`) and event handler easily
+* Custom binding API available
+* Performance concerned, use `textContent` for format and text interpolation
+* Safety concerned, values are escaped by default, unescape variable by using `{!name}`
+* Reusable binding for list of reactive works much faster
+
+## Install
+
+    npm i reactive-lite
+
+## Basic
+
+* **interpolate** `<span>{first} {last}</span>`
 * **format** `<div data-format="formatMoney"></div>` with function like:
 ``` js
 function() { return '$' + this.money }
@@ -23,15 +38,11 @@ function(el) { el.style.display = this.active?'block': 'none'}
 **NOTICE**:
 * To make reactive-lite works, use `this.prop` in your format and render functions, the context(`this` reference) is `model`.
 * Text node is ignored for bindings, just for performance, **never** do this:
-``` html
-<div><span>Name is</span> {name}</div>
-```
-Text interpolate **must** always be wrapped with independent element.
+  ``` html
+  <div><span>Name is</span> {name}</div>
+  ```
+  Text interpolate **must** always be wrapped with independent element.
 * Interpolate and format result is rendered with textContent, just for performance.
-
-## Install
-
-    npm i reactive-lite
 
 ## Usage
 
@@ -82,7 +93,7 @@ Reactive.createBinding('data-visible', function(prop) {
 var Reactive = require('reactive-lite')
 Reactive.createBinding('data-sum', function(prop) {
   var arr = prop.split(',')
-  this.bind(prop, function(el, model) {
+  this.bind(arr, function(el, model) {
     var res = arr.reduce(function(pre, v) {
         return pre + Number(v)
     }, 0)
