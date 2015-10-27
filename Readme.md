@@ -12,6 +12,7 @@ This component is carefully designed and heavily tested, but bugs always exists,
 * Performance concerned, use `textContent` for format and text interpolation
 * Safety concerned, values are escaped by default, unescape variable by using `{!name}`
 * Reusable binding for list of reactive works much faster
+* Easily works with checkbox and select
 
 ## Install
 
@@ -103,6 +104,9 @@ Reactive.createBinding('data-sum', function(prop) {
 ```
 
 Custom bindings are global, so it's recommended to define them in one place
+
+## Checkbox and select
+
 
 ## Events
 
