@@ -51,6 +51,20 @@ describe('#bindings', function () {
     assert(el.textContent !== '$' + model.money)
   })
 
+  it('should set window context to data-format', function () {
+    el.setAttribute('data-format', 'formatMoney')
+    el.textContent = '{money}'
+    var fired
+    model.formatMoney = function (money) {
+      fired = true
+      assert(window === this)
+      return '$' + money
+    }
+    var r = new Reactive(el, model)
+    assert(fired === true)
+    r.remove()
+  })
+
   it('should works with data-render', function () {
     el.setAttribute('data-render', 'render')
     var reactive = new Reactive(el, model, {
@@ -69,6 +83,19 @@ describe('#bindings', function () {
     model.first = 'bbb'
     model.emit('change first')
     assert(el.textContent !== model.first + model.last)
+  })
+
+  it('should set window context with data-render function on model', function () {
+    el.setAttribute('data-render', 'render')
+    model.render = function (m, node) {
+      assert(this === window)
+      assert(m === model)
+      assert(el === node)
+      node.textContent = m.first + m.last
+    }
+    var reactive = new Reactive(el, model)
+    assert.equal(el.textContent, model.first + model.last)
+    reactive.remove()
   })
 
   it('should works with buildin attrs', function () {

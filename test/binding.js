@@ -120,6 +120,19 @@ describe('#binding', function () {
     assert(count === 3)
   })
 
+  it('should prevent text-interpolation when element has data-format', function () {
+    model.formatId = function (id) {
+      return id.toString().split('').reverse().join('')
+    }
+    el.textContent = '{id}'
+    el.setAttribute('data-format', 'formatId')
+    var reactive = new Reactive(el, model)
+    var binding = new Binding(reactive)
+    binding.interpolation('{id}')
+    assert(binding.bindings.length === 1)
+  })
+
+
   it('should check the binding name exists', function () {
     var exist = Binding.hasBinding('data-xyz')
     assert(exist === false)
