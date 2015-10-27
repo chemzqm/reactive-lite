@@ -19,11 +19,11 @@ describe('#util', function () {
   })
 
   it('should parse bindings', function () {
-    var fn = function () {
-      var id = this.$uid
-      var fullname = this.first + this.last
+    var fn = function (m) {
+      var id = m.$uid
+      var fullname = m.first + m.last
       id + fullname
-      return this.first +this.last + this._id
+      return m.first + m.last + m._id
     }
     var arr = util.parseBindings(fn)
     assert.deepEqual(arr, ['$uid', 'first', 'last', '_id'])
@@ -60,5 +60,12 @@ describe('#util', function () {
   it('should check interpolation', function () {
     var s = '<span>{}</span>'
     assert(util.hasInterpolation(s))
+  })
+
+  it('should parse the binding attribute', function () {
+    var el = document.createElement('div')
+    el.innerHTML = ' {first} '
+    var attr = util.parseFormatBinding(el)
+    assert.equal(attr, 'first')
   })
 })

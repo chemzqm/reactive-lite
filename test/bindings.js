@@ -14,8 +14,8 @@ describe('#bindings', function () {
       last: 'texi',
       money: 333,
       age: 22,
-      format: function () {
-        return '$' + this.money
+      formatMoney: function (money) {
+        return '$' + money
       }
     }
     emitter(model)
@@ -38,7 +38,8 @@ describe('#bindings', function () {
   }
 
   it('should works with data-format', function () {
-    el.setAttribute('data-format', 'format')
+    el.setAttribute('data-format', 'formatMoney')
+    el.textContent = '{money}'
     var reactive = Reactive(el, model)
     assert.equal(el.textContent, '$' + model.money)
     model.money = 456
@@ -53,8 +54,8 @@ describe('#bindings', function () {
   it('should works with data-render', function () {
     el.setAttribute('data-render', 'render')
     var reactive = new Reactive(el, model, {
-      render: function (el) {
-        el.textContent = this.first + this.last
+      render: function (model, el) {
+        el.textContent = model.first + model.last
       }
     })
     assert.equal(el.textContent, model.first + model.last)
