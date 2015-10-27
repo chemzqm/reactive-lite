@@ -2,14 +2,14 @@
 
 [![Build Status](https://secure.travis-ci.org/chemzqm/reactive-lite.png)](http://travis-ci.org/chemzqm/reactive-lite)
 
-Simplified reactive component, no sucks api need to remember, bind model like this:
+Simplified reactive component,, bind model like this:
 
-* **inter** <span>{first} {last}</span>
+* **interpolate** <span>{first} {last}</span>
 * **format** `<div data-format="formatMoney"></div>` with function like:
 ``` js
 function() { return '$' + this.money }
 ```
-the function is reuseable.
+the function is reusable.
 
 * **render** `<div data-render="checkActive" >Show on active</div>` with function like
 ``` js
@@ -21,8 +21,13 @@ function(el) { el.style.display = this.active?'block': 'none'}
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
 
 **NOTICE**:
-* To make reactive-lite works, use `this.*attrname*` in your foramt and render functions
-* Text node is ignored for bindings, just for performance
+* To make reactive-lite works, use `this.prop` in your format and render functions, the context(`this` reference) is `model`.
+* Text node is ignored for bindings, just for performance, **never** do this:
+``` html
+<div><span>Name is</span> {name}</div>
+```
+Text interpolate **must** always be wrapped with independent element.
+* Interpolate and format result is rendered with textContent, just for performance.
 
 TODO: test
 
@@ -52,6 +57,8 @@ document.body.appendChild(reactive.el)
 
 Unbind all events and remove `reactive.el`
 
+## Advance usage
+
 ## Events
 
 * `change`
@@ -59,7 +66,7 @@ Unbind all events and remove `reactive.el`
 * `tap`
 * `dblclick`
 * `mousedown`
-* `mouseup`
+* `mousaup`
 * `mousemove`
 * `mouseenter`
 * `mouseleave`

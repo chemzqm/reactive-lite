@@ -10,6 +10,7 @@ var User = Model('User')
           .attr('active')
           .attr('country')
           .attr('money')
+          .attr('pets')
 
 var user = new User({
   id: '123',
@@ -17,7 +18,8 @@ var user = new User({
   last: 'noob',
   active: true,
   country: 'China',
-  money: 122224
+  money: 122224,
+  pets: ['pig', 'dog']
 })
 
 var view = {

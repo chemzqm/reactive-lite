@@ -19,16 +19,22 @@
     <div data-id="{id}">{first} {last}</div>
     <div data-format="formatMoney"></div>
     <div>
-      <input type="checkbox" name="active" data-checked="active" on-change="toggleStat"/> active
+      <label><input type="checkbox" name="active" data-checked="active" on-change="toggleStat">active</label>
     </div>
     <div>
       <select name="country" id="country" class="select">
-        <option value="">---</option>
+        <option value=""></option>
         <option value="America" data-selected="country">America</option>
         <option value="Canda" data-selected="country">Canda</option>
         <option value="China" data-selected="country">China</option>
       </select>
     </div>
+    <section class="checkbox-list">
+      <label><input name="pets" type="checkbox" value="pig" data-checked="pets">pig</label>
+      <label><input name="pets" type="checkbox" value="dog" data-checked="pets">dog</label>
+      <label><input name="pets" type="checkbox" value="cat" data-checked="pets">cat</label>
+      <label><input name="pets" type="checkbox" value="monkey" data-checked="pets">monkey</label>
+    </section>
     <div><a data-href="http://localhost:3000/{id}">user {id}</a></div>
     <div data-render="checkStat">hide when stat is false</div>
     <button on-click="addMoney">add money</button>
