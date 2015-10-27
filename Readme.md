@@ -29,8 +29,6 @@ function(el) { el.style.display = this.active?'block': 'none'}
 Text interpolate **must** always be wrapped with independent element.
 * Interpolate and format result is rendered with textContent, just for performance.
 
-TODO: test
-
 ## Install
 
     npm i reactive-lite
@@ -58,6 +56,42 @@ document.body.appendChild(reactive.el)
 Unbind all events and remove `reactive.el`
 
 ## Advance usage
+
+### Custom binding
+
+* Create `data-visible` binding to dynamically display element by check the `prop` value from model
+
+``` html
+<div data-visible="active"></div>
+```
+``` js
+var Reactive = require('reactive-lite')
+Reactive.createBinding('data-visible', function(prop) {
+  this.bind(prop, function(el, model) {
+    el.style.display = model[prop] ? 'block' : 'none'
+  })
+})
+```
+
+* Create `data-sum` binding to dynamically sum the properties
+
+``` html
+<div data-sum="x,y,z"></div>
+```
+``` js
+var Reactive = require('reactive-lite')
+Reactive.createBinding('data-sum', function(prop) {
+  var arr = prop.split(',')
+  this.bind(prop, function(el, model) {
+    var res = arr.reduce(function(pre, v) {
+        return pre + Number(v)
+    }, 0)
+    el.textContent = res
+  })
+})
+```
+
+Custom bindings are global, so it's recommended to define them in one place
 
 ## Events
 
