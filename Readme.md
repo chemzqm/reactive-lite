@@ -12,7 +12,7 @@ This component is carefully designed and heavily tested, but bugs always exists,
 * Performance concerned, use `textContent` for format and text interpolation
 * Safety concerned, values are escaped by default, unescape variable by using `{!name}`
 * Reusable binding for list of reactive works much faster
-* Easily works with checkbox and select
+* Easily works with checkbox(es) and select element
 
 ## Install
 
@@ -21,19 +21,24 @@ This component is carefully designed and heavily tested, but bugs always exists,
 ## Basic
 
 * **interpolate** `<span>{first} {last}</span>`
-* **format** `<div data-format="formatMoney"></div>` with function like:
+* **format** `<div data-format="formatMoney">{money}</div>` with function like:
+
 ``` js
-function() { return '$' + this.money }
+function(money) { return '$' + money }
 ```
-the function is reusable.
+
+The function context is `null` with the property value defined in element textContent
 
 * **render** `<div data-render="checkActive" >Show on active</div>` with function like
+
 ``` js
-function(el) { el.style.display = this.active?'block': 'none'}
+function(model, el) { el.style.display = model.active?'block': 'none'}
 ```
 
+The function is called with `model` and corresponding `element`, context is the delegate if it's function from delegate object
+
 * **attr-interpolation** `<a data-href="http://github.com/{uid}">{name}</a>`
-* **event binding** `<button on-click="onBtnClick">click me</button>`
+* **event binding** `<button on-click="onBtnClick">click me</button>` function is called with `event`, `model` and `element`
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
 
 **NOTICE**:
