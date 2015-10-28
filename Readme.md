@@ -4,6 +4,8 @@
 
 This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
 
+TODO: Bindings analysis and reuse
+
 ## Features
 
 * Flexible binding fashion, including text-interpolation, format and render for different usage
@@ -11,7 +13,7 @@ This component is carefully designed and heavily tested, but bugs always exists,
 * Custom binding API available
 * Performance concerned, use `textContent` for format and text interpolation
 * Safety concerned, values are escaped by default, unescape variable by using `{!name}`
-* Reusable binding for list of reactive works much faster
+* ~~Reusable binding for list of reactive works much faster~~
 * Easily works with checkbox(es) and select element
 
 ## Install
