@@ -38,6 +38,7 @@
     "mocha": "^2.3.3",
     "mocha-loader": "^0.7.1",
     "model-component": "^1.0.1",
+    "simulate-touch": "0.0.4",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1"
   },

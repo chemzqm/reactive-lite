@@ -2,6 +2,17 @@
 var assert = require('assert')
 var emitter = require('emitter')
 var Reactive = require('..')
+var simulateTouch = require('simulate-touch')
+
+function fire (element, event) {
+  var mousedownEvent = document.createEvent('MouseEvent');
+  mousedownEvent.initMouseEvent(event, true, true, window, 0,
+                                 0, 0, 0, 0,
+                                 false, false, false, false,
+                                 0, null);
+
+  element.dispatchEvent(mousedownEvent);
+}
 
 describe('#bindings', function () {
 
@@ -142,6 +153,27 @@ describe('#bindings', function () {
     reactive.remove()
     el.click()
     assert.equal(model.age, age + 2)
+  })
+
+  it('should works with tap event', function (done) {
+    el.setAttribute('on-tap', 'onTap')
+    var fired
+    model.onTap = function () {
+      this.age++
+      fired = true
+      this.emit('change age')
+    }
+    var reactive = new Reactive(el, model)
+    var age = model.age
+    simulateTouch(el)
+    fire(el, 'mousedown')
+    setTimeout(function () {
+      fire(el, 'mouseup')
+      assert(fired === true)
+      assert(model.age - 1 === age)
+      reactive.remove()
+      done()
+    }, 20)
   })
 
   it('should works with single checkbox', function () {
