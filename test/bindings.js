@@ -2,16 +2,16 @@
 var assert = require('assert')
 var emitter = require('emitter')
 var Reactive = require('..')
-var simulateTouch = require('simulate-touch')
+// var simulateTouch = require('simulate-touch')
 
 function fire (element, event) {
-  var mousedownEvent = document.createEvent('MouseEvent');
-  mousedownEvent.initMouseEvent(event, true, true, window, 0,
-                                 0, 0, 0, 0,
-                                 false, false, false, false,
-                                 0, null);
-
-  element.dispatchEvent(mousedownEvent);
+  var e = new UIEvent(event, {
+      bubbles: true,
+      cancelable: false,
+      detail: 1
+  })
+  e.touches = [{pageX: 0, pageY: 0}]
+  element.dispatchEvent(e);
 }
 
 describe('#bindings', function () {
@@ -165,15 +165,15 @@ describe('#bindings', function () {
     }
     var reactive = new Reactive(el, model)
     var age = model.age
-    simulateTouch(el)
-    fire(el, 'mousedown')
+    fire(el, 'touchstart')
     setTimeout(function () {
-      fire(el, 'mouseup')
+      fire(el, 'touchend')
       assert(fired === true)
       assert(model.age - 1 === age)
       reactive.remove()
+
       done()
-    }, 20)
+    }, 10)
   })
 
   it('should works with single checkbox', function () {
