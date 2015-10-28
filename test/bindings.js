@@ -39,16 +39,16 @@ describe('#bindings', function () {
 
   it('should works with data-format', function () {
     el.setAttribute('data-format', 'formatMoney')
-    el.textContent = '{money}'
+    el.textContent = 'like {money}'
     var reactive = Reactive(el, model)
-    assert.equal(el.textContent, '$' + model.money)
+    assert.equal(el.textContent, 'like $' + model.money)
     model.money = 456
     model.emit('change money')
-    assert.equal(el.textContent, '$' + model.money)
+    assert.equal(el.textContent, 'like $' + model.money)
     reactive.remove()
     model.money = 777
     model.emit('change money')
-    assert(el.textContent !== '$' + model.money)
+    assert(el.textContent !== 'like $' + model.money)
   })
 
   it('should set window context to data-format', function () {

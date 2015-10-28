@@ -66,7 +66,7 @@ describe('#util', function () {
   it('should parse simple render config', function () {
     function es(s) { return s }
     var str = '{first} {second}'
-    var config = util.parseRenderConfig(str)
+    var config = util.parseInterpolationConfig(str)
     assert.deepEqual(config.bindings, ['first', 'second'])
     var model = {first: 'a', second: 1}
     assert.equal(config.fn(model, es), 'a 1')
@@ -74,7 +74,7 @@ describe('#util', function () {
 
   it('should not escape interpolation with `!` prepend', function () {
     var str = '{first} {!second}'
-    var config = util.parseRenderConfig(str)
+    var config = util.parseInterpolationConfig(str)
     assert.deepEqual(config.bindings, ['first', 'second'])
     var model = {first: '<a>', second: '<b>'}
     var res = config.fn(model, util.es)
@@ -83,7 +83,7 @@ describe('#util', function () {
 
   it('should parse interpolation with function', function () {
     var str = '{fullname()}'
-    var config = util.parseRenderConfig(str)
+    var config = util.parseInterpolationConfig(str)
     assert.deepEqual(config.bindings, [])
     var model = { first: 'tobi', last: 'taxi', fullname: function() {
       return this.first + this.last
@@ -95,7 +95,7 @@ describe('#util', function () {
   it('should parse properties with _ $', function () {
     var str = '{_a} {$b}'
     var model = {_a: '1', $b: '2'}
-    var config = util.parseRenderConfig(str)
+    var config = util.parseInterpolationConfig(str)
     assert.deepEqual(config.bindings, ['_a', '$b'])
     var res = config.fn(model, util.es)
     assert.deepEqual(res, '1 2')
@@ -109,21 +109,11 @@ describe('#util', function () {
   })
 
   it('should parse the binding attribute', function () {
-    var el = document.createElement('div')
-    el.innerHTML = ' {first} '
-    var attr = util.parseFormatBinding(el)
-    assert.equal(attr, 'first')
-  })
-
-  it('should throw when no binding find for format', function () {
-    var err
-    var el = document.createElement('div')
-    try {
-      util.parseFormatBinding(el)
-    } catch(e) {
-      err = e
-    }
-    assert(/^No/.test(err.message))
+    var config = util.parseFormatConfig(' {first} middle {last} ')
+    var f = function (word) { return word.split(/\s*/).reverse().join('') }
+    var str = config.fn({first: 'abc', last: 'def'}, f)
+    assert.deepEqual(config.bindings, ['first', 'last'])
+    assert.equal(str, ' cba middle fed ')
   })
 
   it('should walk through all the node', function () {

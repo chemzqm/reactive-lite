@@ -7,7 +7,6 @@
 This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
 
 TODO:
-* Improve data-format binding
 * Bindings analysis and reuse
 * Use wiki for more documentation
 
@@ -28,7 +27,7 @@ TODO:
 ## Basic
 
 * **interpolate** `<span>{first} {last}</span>`
-* **format** `<div data-format="formatMoney">{money}</div>` with function like:
+* **format** `<div data-format="formatMoney">money count: {money}</div>` with function like:
 
 ``` js
 function(money) { return '$' + money }
