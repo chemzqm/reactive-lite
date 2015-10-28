@@ -94,7 +94,7 @@ describe('#Reactive', function () {
     })
     var config = r.getDelegate('format')
     assert.equal(config.fn, func)
-    assert.equal(config.delegate, false)
+    assert.equal(config.model, true)
   })
 
   it('should get delegate function from delegate object', function () {
@@ -105,7 +105,7 @@ describe('#Reactive', function () {
     var r = new Reactive(el, model, { delegate: delegate })
     var config = r.getDelegate('format')
     assert.equal(config.fn, func)
-    assert.equal(config.delegate, true)
+    assert.equal(config.model, false)
   })
 
   it('should throw when not find delegate function', function () {

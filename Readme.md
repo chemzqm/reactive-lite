@@ -6,6 +6,7 @@
 This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
 
 TODO:
+* Custom binding for single reactive instance
 * Bindings analysis and reuse
 * Use wiki for more documentation
 
@@ -40,10 +41,21 @@ No context for format, the result is rendered with `el.textContent`
 function(model, el) { el.style.display = model.active ?'block': 'none'}
 ```
 
-The function is called with `model` `element`, context is the delegate if it's from delegate object
+The function is called with `model` `element`, context is preserved
 
 * **attr-interpolation** `<a data-href="http://github.com/{uid}">{name}</a>`
-* **event binding** `<button on-click="onBtnClick">click me</button>` function is called with `event`, `model` and `element`
+* **event binding** `<button on-click="onBtnClick">click me</button>` with function like
+``` js
+function (e, model, element) {
+  if (model.active) {
+    element.disabled = true
+  } else {
+    element.disabled = false
+  }
+}
+```
+Context(this reference) is preserved to model or delegate object
+
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
 
 **NOTICE**:

@@ -140,6 +140,18 @@ describe('#binding', function () {
     assert(exist === true)
   })
 
+  it('shoud get context', function () {
+    var delegate = {}
+    var reactive = new Reactive(el, model, {
+      delegate: delegate
+    })
+    var binding = new Binding(reactive)
+    var context = binding.getContext(true)
+    assert.equal(context, model)
+    context = binding.getContext()
+    assert.equal(context, delegate)
+  })
+
   it('should remove binding', function () {
     var reactive = new Reactive(el, model)
     var binding = new Binding(reactive)

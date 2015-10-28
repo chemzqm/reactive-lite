@@ -57,7 +57,7 @@ describe('#bindings', function () {
     var fired
     model.formatMoney = function (money) {
       fired = true
-      assert(window === this)
+      assert(this === window)
       return '$' + money
     }
     var r = new Reactive(el, model)
@@ -87,10 +87,10 @@ describe('#bindings', function () {
     assert(el.textContent !== model.first + model.last)
   })
 
-  it('should set window context with data-render function on model', function () {
+  it('should set context with model when data-render function on model', function () {
     el.setAttribute('data-render', 'render')
     model.render = function (m, node) {
-      assert(this === window)
+      assert(this === model)
       assert(m === model)
       assert(el === node)
       node.textContent = m.first + m.last

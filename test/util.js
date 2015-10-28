@@ -29,6 +29,24 @@ describe('#util', function () {
     assert.deepEqual(arr, ['$uid', 'first', 'last', '_id'])
   })
 
+  it('should parse bindings with this', function () {
+    var fn = function (m) {
+      this.first + this._last + this.$middle
+      m.sex
+    }
+    var arr = util.parseBindings(fn, this)
+    assert.deepEqual(arr, ['first', '_last', '$middle', 'sex'])
+  })
+
+  it('should parse bindings without this', function () {
+    var fn = function (m) {
+      this.first + this._last + this.$middle
+      m.sex
+    }
+    var arr = util.parseBindings(fn, false)
+    assert.deepEqual(arr, ['sex'])
+  })
+
   it('should ignore buildin method when parse bindings', function () {
     var fn = function () {
       this.on('create')
