@@ -39,6 +39,12 @@ describe('#util', function () {
     assert.equal(arr.length, 0)
   })
 
+  it('should return empty array if not find bindings', function () {
+    var fn = function () {}
+    var arr = util.parseBindings(fn)
+    assert.equal(arr.length, 0)
+  })
+
   it('should parse simple render config', function () {
     function es(s) { return s }
     var str = '{first} {second}'
@@ -57,9 +63,31 @@ describe('#util', function () {
     assert.equal(res, '&lt;a&gt; <b>')
   })
 
+  it('should parse interpolation with function', function () {
+    var str = '{fullname()}'
+    var config = util.parseRenderConfig(str)
+    assert.deepEqual(config.bindings, [])
+    var model = { first: 'tobi', last: 'taxi', fullname: function() {
+      return this.first + this.last
+    }}
+    var res = config.fn(model, util.es)
+    assert.equal(res, 'tobitaxi')
+  })
+
+  it('should parse properties with _ $', function () {
+    var str = '{_a} {$b}'
+    var model = {_a: '1', $b: '2'}
+    var config = util.parseRenderConfig(str)
+    assert.deepEqual(config.bindings, ['_a', '$b'])
+    var res = config.fn(model, util.es)
+    assert.deepEqual(res, '1 2')
+  })
+
   it('should check interpolation', function () {
     var s = '<span>{}</span>'
     assert(util.hasInterpolation(s))
+    s = s.replace(/\{/g, '')
+    assert(util.hasInterpolation(s) === false)
   })
 
   it('should parse the binding attribute', function () {
@@ -67,5 +95,49 @@ describe('#util', function () {
     el.innerHTML = ' {first} '
     var attr = util.parseFormatBinding(el)
     assert.equal(attr, 'first')
+  })
+
+  it('should throw when no binding find for format', function () {
+    var err
+    var el = document.createElement('div')
+    try {
+      util.parseFormatBinding(el)
+    } catch(e) {
+      err = e
+    }
+    assert(/^No/.test(err.message))
+  })
+
+  it('should walk through all the node', function () {
+    var i = 0
+    function create() {
+      i = i + 1
+      var node = document.createElement('div')
+      var l = Math.floor(Math.random()*6)
+      for (var j = 0; j < l; j++) {
+        if (i === 50) break;
+        node.appendChild(create())
+      }
+      return node
+    }
+    var root = create()
+    var count = 0
+    util.walk(root, function (el, next) {
+      i--
+      next()
+    }, function () {
+      count++
+    })
+    assert(i === 0)
+    assert(count === 1)
+  })
+
+  it('should check the function exist or not', function () {
+    var o = { format: function () { } }
+    assert(util.isFunction(o, 'format'))
+    o.format = 'abc'
+    assert.equal(util.isFunction(o, 'format'), false)
+    o = {}
+    assert.equal(util.isFunction(o, 'format'), false)
   })
 })

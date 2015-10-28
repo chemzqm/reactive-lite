@@ -68,8 +68,10 @@ describe('#bindings', function () {
   it('should works with data-render', function () {
     el.setAttribute('data-render', 'render')
     var reactive = new Reactive(el, model, {
-      render: function (model, el) {
-        el.textContent = model.first + model.last
+      delegate: {
+        render: function (model, el) {
+          el.textContent = model.first + model.last
+        }
       }
     })
     assert.equal(el.textContent, model.first + model.last)

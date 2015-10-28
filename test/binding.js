@@ -92,7 +92,7 @@ describe('#binding', function () {
     var reactive = new Reactive(el, model)
     var binding = new Binding(reactive)
     var count = 0
-    binding.bind('first', function (node, m) {
+    binding.bind('first', function (m, node) {
       assert.equal(node, el)
       assert.equal(m, model)
       count++
@@ -107,7 +107,7 @@ describe('#binding', function () {
     var reactive = new Reactive(el, model)
     var binding = new Binding(reactive)
     var count = 0
-    binding.bind(['first', 'last'], function (node, m) {
+    binding.bind(['first', 'last'], function (m, node) {
       assert.equal(node, el)
       assert.equal(m, model)
       count++
