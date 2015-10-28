@@ -38,6 +38,15 @@ describe('#binding', function () {
     assert.equal(el.textContent, model.first + ' ' + model.last)
   })
 
+  it('should render empty string if property is null or undefined', function () {
+    var reactive = new Reactive(el, model)
+    var binding = new Binding(reactive)
+    model.middle = null
+    binding.interpolation('{first}{middle}{top}')
+    binding.active(el)
+    assert.equal(el.textContent, model.first)
+  })
+
   it('should add binding', function () {
     model.render = function (model, el) {
       el.textContent =  'hi, ' + model.first + model.last
@@ -88,6 +97,25 @@ describe('#binding', function () {
     model.first = 'bear'
     model.emit('change first')
     assert.equal(el.textContent, model.first + ' ' + model.last)
+  })
+
+  it('shoud set attribute correctlly if no interpolate for `data-attr`', function () {
+    var node = document.createElement('a')
+    var reactive = new Reactive(node, model)
+    var binding = new Binding(reactive)
+    var s = 'http://localhost:3000?a=1&b=2'
+    binding.add('data-href', s)
+    binding.active(node)
+    assert.equal(node.getAttribute('href'), s)
+  })
+
+  it('should works if `data-attr` attribute not have binding', function () {
+    el.setAttribute('data-xyz', 'tty')
+    var reactive = new Reactive(el, model)
+    var binding = new Binding(reactive)
+    binding.add('data-xyz', 'tty')
+    binding.active(el)
+    assert.equal(el.getAttribute('data-xyz'), 'tty')
   })
 
   it('should bind reactive with single prop', function () {

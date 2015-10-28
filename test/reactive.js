@@ -40,15 +40,15 @@ describe('#Reactive', function () {
     assert.equal(r.el, el)
   })
 
-  it('should warn the user if model not have on off function', function () {
+  it('should throw if model not have on off function', function () {
     if (!console) return
-    var fired
-    console.warn = function () { // eslint-disable-line
-      fired = true
+    var err
+    try {
+      Reactive(el, {})
+    } catch (e) {
+      err = e
     }
-    var r = Reactive(el, {})
-    assert(fired === true)
-    r.remove()
+    assert(/not\sfound/.test(err.message))
   })
 
   it('should interpolate text node', function () {
