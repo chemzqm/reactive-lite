@@ -29,7 +29,7 @@ TODO: Bindings analysis and reuse
 function(money) { return '$' + money }
 ```
 
-The function context is `null` and called with the property value defined in element textContent
+No context for format, the result is rendered with `el.textContent`
 
 * **render** `<div data-render="checkActive" >Show on active</div>` with function like
 
@@ -37,7 +37,7 @@ The function context is `null` and called with the property value defined in ele
 function(model, el) { el.style.display = model.active ?'block': 'none'}
 ```
 
-The function is called with `model` and corresponding `element`, context is the delegate if it's function from delegate object
+The function is called with `model` `element`, context is the delegate if it's from delegate object
 
 * **attr-interpolation** `<a data-href="http://github.com/{uid}">{name}</a>`
 * **event binding** `<button on-click="onBtnClick">click me</button>` function is called with `event`, `model` and `element`
@@ -51,10 +51,10 @@ The function is called with `model` and corresponding `element`, context is the 
 
 ``` js
 var reactive = require('reactive-lite')
-var template = require('./template.html')
+var el = document.getElementById('user')
 var domify = require('domify')
 
-reactive(domify(template), model)
+reactive(el, model)
 document.body.appendChild(reactive.el)
 ```
 ## API
@@ -62,10 +62,12 @@ document.body.appendChild(reactive.el)
 ### Reactive(el, model, [option])
 
 * `el` could be element or html template string
-* `model` contains attributes for binding to the element, should emit `change [name]` event to notify reactive instance
+* `model` contains attributes for binding to the element and binding functions, should emit `change [name]` event
 * `option` is optional object contains config
-* `option.delegate` contains event handler and/or format and render function, reactive would try to find format and render on the model first
+* `option.delegate` contains event handler and/or format and render function(s)
 * `option.bindings` contains bindings for this reactive-lite only
+
+Binding function are searched on `model` first, if not, search delegate instead, throw error if not found
 
 ### .remove()
 
@@ -83,7 +85,7 @@ Unbind all events and remove `reactive.el`
 ``` js
 var Reactive = require('reactive-lite')
 Reactive.createBinding('data-visible', function(prop) {
-  this.bind(prop, function(el, model) {
+  this.bind(prop, function(model, el) {
     el.style.display = model[prop] ? 'block' : 'none'
   })
 })
@@ -98,7 +100,7 @@ Reactive.createBinding('data-visible', function(prop) {
 var Reactive = require('reactive-lite')
 Reactive.createBinding('data-sum', function(prop) {
   var arr = prop.split(',')
-  this.bind(arr, function(el, model) {
+  this.bind(arr, function(model, el) {
     var res = arr.reduce(function(pre, v) {
         return pre + Number(v)
     }, 0)
@@ -107,10 +109,7 @@ Reactive.createBinding('data-sum', function(prop) {
 })
 ```
 
-Custom bindings are global, so it's recommended to define them in one place
-
 ## Checkbox and select
-
 
 ## Events
 
