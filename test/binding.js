@@ -24,7 +24,7 @@ describe('#binding', function () {
   })
 
   it('should init', function () {
-    var reactive = new Reactive(el, {})
+    var reactive = new Reactive(el, model)
     var binding = new Binding(reactive)
     assert.equal(binding.bindings.length, 0)
   })
