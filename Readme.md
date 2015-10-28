@@ -14,7 +14,7 @@ TODO:
 
 * Flexible binding fashion, including text-interpolation, format and render for different usage
 * Bind attribute (especially `src` `herf`) and event handler easily
-* Custom binding API available
+* Custom binding API for gobal usage or single reactive instance
 * Performance concerned, use `textContent` for format and text interpolation
 * Safety concerned, values are escaped by default, unescape variable by using `{!name}`
 * ~~Reusable binding for list of reactive works much faster~~
@@ -54,7 +54,7 @@ function (e, model, element) {
   }
 }
 ```
-Context(this reference) is preserved to model or delegate object
+Context (this reference) is preserved to model or delegate object
 
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
 
