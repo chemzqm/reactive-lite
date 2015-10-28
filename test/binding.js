@@ -109,6 +109,16 @@ describe('#binding', function () {
     assert.equal(node.getAttribute('href'), s)
   })
 
+  it('should treat null undefined value as empty string for `data-attr`', function () {
+    var node = document.createElement('a')
+    var reactive = new Reactive(node, model)
+    var binding = new Binding(reactive)
+    var s = 'http://localhost:3000?a=1&b={xyz}'
+    binding.add('data-href', s)
+    binding.active(node)
+    assert.equal(node.getAttribute('href'), s.replace('{xyz}',''))
+  })
+
   it('should works if `data-attr` attribute not have binding', function () {
     el.setAttribute('data-xyz', 'tty')
     var reactive = new Reactive(el, model)
@@ -116,6 +126,7 @@ describe('#binding', function () {
     binding.add('data-xyz', 'tty')
     binding.active(el)
     assert.equal(el.getAttribute('data-xyz'), 'tty')
+    assert(el.getAttribute('xyz') == null)
   })
 
   it('should bind reactive with single prop', function () {

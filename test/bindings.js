@@ -65,6 +65,18 @@ describe('#bindings', function () {
     r.remove()
   })
 
+  it('should render empty string with null/undefined variable binding with data-format', function () {
+    el.setAttribute('data-format', 'formatMoney')
+    el.textContent = '{money}'
+    model.money = null
+    model.formatMoney = function (money) {
+      return '$' + money
+    }
+    var r = new Reactive(el, model)
+    assert.equal(el.textContent, '$')
+    r.remove()
+  })
+
   it('should works with data-render', function () {
     el.setAttribute('data-render', 'render')
     var reactive = new Reactive(el, model, {
