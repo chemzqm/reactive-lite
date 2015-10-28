@@ -22,6 +22,12 @@ describe('#Reactive', function () {
     model = null
   })
 
+  it('should init with string template', function () {
+    var r = new Reactive('<div>{first}</div>', model)
+    assert(r.model === model)
+    assert(r.el != null)
+  })
+
   it('should init with new keyword', function () {
     var r = new Reactive(el, model)
     assert(r.model === model)
@@ -32,7 +38,17 @@ describe('#Reactive', function () {
     var r = Reactive(el, model)
     assert(r.model === model)
     assert.equal(r.el, el)
-    
+  })
+
+  it('should warn the user if model not have on off function', function () {
+    if (!console) return
+    var fired
+    console.warn = function () { // eslint-disable-line
+      fired = true
+    }
+    var r = Reactive(el, {})
+    assert(fired === true)
+    r.remove()
   })
 
   it('should interpolate text node', function () {
@@ -59,6 +75,13 @@ describe('#Reactive', function () {
     var text = el.textContent
     var r = new Reactive(el, model)
     assert.equal(el.textContent, text)
+    r.remove()
+  })
+
+  it('should interpolate single node', function () {
+    el.textContent = '{first}'
+    var r = new Reactive(el, model)
+    assert.equal(el.textContent, model.first)
     r.remove()
   })
 
@@ -163,6 +186,19 @@ describe('#Reactive', function () {
       err = e
     }
     assert(typeof err === 'undefined')
+  })
+
+  it('should throw when data-format element has child element', function () {
+    model.format = function () { }
+    el.setAttribute('data-format', 'format')
+    el.appendChild(document.createElement('div'))
+    var err
+    try {
+      new Reactive(el, model)
+    } catch (e) {
+      err = e
+    }
+    assert(/parse/.test(err.message))
   })
 
   it('should remove node and not publish event on remove', function () {

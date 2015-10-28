@@ -140,6 +140,34 @@ describe('#util', function () {
     assert(count === 1)
   })
 
+  it('should not walk through the only text node', function () {
+    var el = document.createElement('div')
+    el.textContent = ' {first} '
+    var count = 0
+    util.walk(el, function (node, next, single) {
+      count = count + 1
+      assert(single === true)
+      assert(el === node)
+      next()
+    })
+    assert.equal(count, 1)
+  })
+
+  it('should walk through text node if other element exist', function () {
+    var el = document.createElement('div')
+    el.textContent = ' {first} '
+    el.appendChild(document.createElement('div'))
+    var count = 0
+    util.walk(el, function (node, next, single) {
+      count = count + 1
+      if (node === el) {
+        assert(single === false)
+      }
+      next()
+    })
+    assert.equal(count, 3)
+  })
+
   it('should check the function exist or not', function () {
     var o = { format: function () { } }
     assert(util.isFunction(o, 'format'))
