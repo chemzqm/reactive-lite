@@ -13,7 +13,8 @@ describe('#binding', function () {
     model = {
       id: 9527,
       first: 'tobi',
-      last: 'texi'
+      last: 'texi',
+      active: false
     }
     emitter(model)
   })
@@ -46,6 +47,34 @@ describe('#binding', function () {
     binding.add('data-render', 'render')
     binding.active(el)
     assert.equal(el.textContent, 'hi, ' + model.first + model.last)
+  })
+
+  it('should use custom bindings first', function () {
+    var fired
+    var ck = document.createElement('input')
+    ck.type = 'checkbox'
+    ck.setAttribute('data-checked', 'active')
+    el.appendChild(ck)
+    Reactive(el, model, {
+      bindings: {
+        'data-checked': function (prop) {
+          this.bind(prop, function (m, el) {
+            assert.equal(m, model)
+            assert.equal(ck, el)
+            fired = true
+            if (model[prop]) {
+              el.checked = true
+            } else {
+              el.checked = false
+            }
+          })
+        }
+      }
+    })
+    model.active = true
+    model.emit('change active')
+    assert(ck.checked === true)
+    assert(fired)
   })
 
   it('should active all bindings', function () {

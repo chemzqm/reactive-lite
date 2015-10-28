@@ -6,7 +6,7 @@
 This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
 
 TODO:
-* Custom binding for single reactive instance
+* Improve data-format binding
 * Bindings analysis and reuse
 * Use wiki for more documentation
 
