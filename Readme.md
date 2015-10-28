@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/chemzqm/reactive-lite.png)](http://travis-ci.org/chemzqm/reactive-lite)
 [![Coverage Status](https://coveralls.io/repos/chemzqm/reactive-lite/badge.svg?branch=master&service=github)](https://coveralls.io/github/chemzqm/reactive-lite?branch=master)
+[![DOC](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)
 
 This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
 
