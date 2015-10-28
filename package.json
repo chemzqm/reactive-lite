@@ -4,14 +4,15 @@
   "description": "reactive simple works",
   "main": "index.js",
   "scripts": {
-    "test": "make test"
+    "test": "make test-coveralls"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chemzqm/reactive-lite.git"
   },
   "keywords": [
-    "reactive", "react"
+    "reactive",
+    "react"
   ],
   "author": "chemzqm@gmail.com",
   "license": "MIT",
@@ -26,6 +27,8 @@
     "gulp-livereload": "^3.8.1",
     "gulp-serve": "^1.2.0",
     "gulp-util": "^3.0.7",
+    "istanbul": "^0.4.0",
+    "istanbul-instrumenter-loader": "^0.1.3",
     "karma": "^0.13.14",
     "karma-cli": "^0.1.1",
     "karma-coverage": "^0.5.3",
