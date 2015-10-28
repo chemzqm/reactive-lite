@@ -27,12 +27,12 @@ This component is carefully designed and heavily tested, but bugs always exists,
 function(money) { return '$' + money }
 ```
 
-The function context is `null` with the property value defined in element textContent
+The function context is `null` and called with the property value defined in element textContent
 
 * **render** `<div data-render="checkActive" >Show on active</div>` with function like
 
 ``` js
-function(model, el) { el.style.display = model.active?'block': 'none'}
+function(model, el) { el.style.display = model.active ?'block': 'none'}
 ```
 
 The function is called with `model` and corresponding `element`, context is the delegate if it's function from delegate object
@@ -42,13 +42,8 @@ The function is called with `model` and corresponding `element`, context is the 
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
 
 **NOTICE**:
-* To make reactive-lite works, use `this.prop` in your format and render functions, the context(`this` reference) is `model`.
-* Text node is ignored for bindings, just for performance, **never** do this:
-  ``` html
-  <div><span>Name is</span> {name}</div>
-  ```
-  Text interpolate **must** always be wrapped with independent element.
-* Interpolate and format result is rendered with textContent, just for performance.
+
+* Interpolation and format result is rendered with textContent, just for performance.
 
 ## Usage
 
@@ -62,11 +57,13 @@ document.body.appendChild(reactive.el)
 ```
 ## API
 
-### Reactive(el, model, [delegate])
+### Reactive(el, model, [option])
 
 * `el` could be element or html template string
 * `model` contains attributes for binding to the element, should emit `change [name]` event to notify reactive instance
-* `delegate` is optional object contains event handler and/or format and render function, reactive would try to find format and render on the model first
+* `option` is optional object contains config
+* `option.delegate` contains event handler and/or format and render function, reactive would try to find format and render on the model first
+* `option.bindings` contains bindings for this reactive-lite only
 
 ### .remove()
 
