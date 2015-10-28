@@ -67,7 +67,13 @@ Context (this reference) is preserved to model or delegate object
 ``` js
 var reactive = require('reactive-lite')
 var el = document.getElementById('user')
-var domify = require('domify')
+var Model = require('model')
+var User = Model('User')
+  .attr('first')
+  .attr('last')
+  .attr('age')
+
+var user = new User({first: 'tobi', last: 'john', age: 22})
 
 reactive(el, model)
 document.body.appendChild(reactive.el)
