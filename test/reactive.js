@@ -43,6 +43,15 @@ describe('#Reactive', function () {
     r.remove()
   })
 
+  it('should not interpolate text node with data-format', function () {
+    el.textContent = '{first}'
+    el.setAttribute('data-format', 'format')
+    model.format = function (first) {return first.split(/\s*/).reverse().join('')}
+    var r = new Reactive(el, model)
+    assert.equal(el.textContent, 'ibot')
+    r.remove()
+  })
+
 
   it('should ignore comment node', function () {
     var node = domify('<!--<div>{first}</div>-->')
