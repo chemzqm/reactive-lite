@@ -20,6 +20,7 @@ TODO:
 * Safety concerned, values are escaped by default, unescape variable by using `{!name}`
 * ~~Reusable binding for list of reactive works much faster~~
 * Easily works with checkbox(es) and select element
+* Null and undefined values in interpolation would be rendered as empty string
 
 ## Install
 
@@ -134,24 +135,6 @@ Reactive.createBinding('data-sum', function(prop) {
 ## Checkbox and select
 
 ## Events
-
-* `change`
-* `click`
-* `tap`
-* `dblclick`
-* `mousedown`
-* `mousaup`
-* `mousemove`
-* `mouseenter`
-* `mouseleave`
-* `scroll`
-* `blur`
-* `focus`
-* `input`
-* `submit`
-* `keydown`
-* `keypress`
-* `keyup`
 
 ## MIT license
 Copyright (c) 2015 chemzqm@gmail.com
