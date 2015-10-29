@@ -303,14 +303,6 @@ describe('#binding', function () {
       assert.equal(binding.bindings, null)
       assert.equal(binding._reactive, undefined)
     })
-
-    it('should remove when reactive removed', function () {
-      var reactive = new Reactive(el, model)
-      var binding = new Binding(reactive)
-      reactive.remove()
-      assert.equal(binding.bindings, null)
-      assert.equal(binding._reactive, undefined)
-    })
   })
 })
 

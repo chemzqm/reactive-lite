@@ -53,7 +53,7 @@ describe('#Binding resue', function () {
     model.integer = integer
     model.renderName = renderName
     emitter(model)
-    var r = new Reactive(el, model, {config: {}})
+    var r = new Reactive(el, model, {config: []})
     return r
   }
 
@@ -65,7 +65,7 @@ describe('#Binding resue', function () {
     }
     emitter(user)
     var node = el.cloneNode(true)
-    var r = new Reactive(node, user, {config: {}})
+    var r = new Reactive(node, user, {config: []})
     return r
   }
 

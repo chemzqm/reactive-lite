@@ -43,21 +43,17 @@ describe('#Reactive', function () {
   })
 
   describe('.checkModel', function () {
-    it('should throw if model not have on off function', function () {
-      if (!console) return
+    it('should not throw if model not have on off function', function () {
       var err
       try {
         Reactive(el, {})
       } catch (e) {
         err = e
       }
-      assert(/not\sfound/.test(err.message))
+      // assert(/not\sfound/.test(err.message))
+      assert(!err)
     })
 
-    it('should not check model when using config', function () {
-      Reactive(el, {}, {config: {}})
-      assert(true)
-    })
   })
 
   describe('process node', function () {
@@ -191,6 +187,29 @@ describe('#Reactive', function () {
     })
   })
 
+  describe('.checkModel', function () {
+    it('should throw', function () {
+      var r = new Reactive(el, {})
+      var err
+      try {
+        r.checkModel({})
+      } catch(e) {
+        err = e
+      }
+      assert(!!err)
+    })
+
+    it('should not throw', function () {
+      var r = new Reactive(el, {})
+      var err
+      try {
+        r.checkModel(model)
+      } catch(e) {
+        err = e
+      }
+      assert(!err)
+    })
+  })
 
   describe('.remove', function () {
     it('should remove node', function () {
