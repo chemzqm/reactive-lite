@@ -63,6 +63,20 @@ describe('#binding', function () {
       binding.interpolation('{id}')
       assert(binding.bindings.length === 1)
     })
+
+    it('should react function bindings', function () {
+      model.fullname = function () {
+        return this.first + ',' + this.last
+      }
+      var reactive = new Reactive(el, model)
+      var binding = new Binding(reactive)
+      binding.interpolation('{fullname()}')
+      binding.active(el)
+      assert.equal(el.textContent, model.fullname())
+      model.first = 'vally'
+      model.emit('change first')
+      assert.equal(el.textContent, model.fullname())
+    })
   })
 
   describe('.add', function () {
@@ -227,6 +241,58 @@ describe('#binding', function () {
       var context = binding.getContext()
       assert.equal(context, delegate)
     })
+  })
+
+  describe('.parseFunctionBindings', function () {
+    it('should parse function bindings', function () {
+      model.fullname = function () {
+        return this.first + ' ' + this.last
+      }
+      var reactive = new Reactive(el, model)
+      var binding = new Binding(reactive)
+      var res = binding.parseFunctionBindings(['fullname'])
+      assert.deepEqual(res, ['first', 'last'])
+    })
+
+    it('should throw if function not found', function () {
+      model.fullname = null
+      var err
+      try {
+        var reactive = new Reactive(el, model)
+        var binding = new Binding(reactive)
+        binding.parseFunctionBindings(['fullname'])
+      } catch (e) {
+        err = e
+      }
+      assert(!!err.message)
+    })
+
+    it('should throw if function is not function', function () {
+      model.fullname = 'first'
+      var err
+      try {
+        var reactive = new Reactive(el, model)
+        var binding = new Binding(reactive)
+        binding.parseFunctionBindings(['fullname'])
+      } catch (e) {
+        err = e
+      }
+      assert(!!err.message)
+    })
+
+    it('should parse function bindings with unique array', function () {
+      model.fullname = function () {
+        return this.first + ' ' + this.last
+      }
+      model.full = function () {
+        return this.first + ' ' + this.last
+      }
+      var reactive = new Reactive(el, model)
+      var binding = new Binding(reactive)
+      var res = binding.parseFunctionBindings(['fullname', 'full'])
+      assert.deepEqual(res, ['first', 'last'])
+    })
+
   })
 
   describe('.remove', function () {

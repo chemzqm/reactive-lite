@@ -29,7 +29,7 @@ describe('#util', function () {
         id + fullname
         return m.first + m.last + m._id
       }
-      var arr = util.parseBindings(fn)
+      var arr = util.parseBindings(fn, true)
       assert.deepEqual(arr, ['$uid', 'first', 'last', '_id'])
     })
 
@@ -38,8 +38,17 @@ describe('#util', function () {
         this.first + this._last + this.$middle
         m.sex
       }
-      var arr = util.parseBindings(fn, this)
-      assert.deepEqual(arr, ['first', '_last', '$middle', 'sex'])
+      var arr = util.parseBindings(fn, true, true)
+      assert.equal(arr.length, 4)
+    })
+
+    it('should only parse this keyword', function () {
+      var fn = function (m) {
+        this.first + this._last + this.$middle
+        m.sex
+      }
+      var arr = util.parseBindings(fn, false, true)
+      assert.equal(arr.length, 3)
     })
 
     it('should not parse this keyword', function () {
@@ -47,15 +56,14 @@ describe('#util', function () {
         this.first + this._last + this.$middle
         m.sex
       }
-      var arr = util.parseBindings(fn, false)
+      var arr = util.parseBindings(fn, true, false)
       assert.deepEqual(arr, ['sex'])
     })
 
-    it('should ignore buildin method', function () {
+    it('should ignore methods', function () {
       var fn = function () {
-        this.on('create')
-        this.off()
-        this.emit('remove')
+        this.dosomething();this.go ();this.on('create')
+        this.did  ('f');this.off();this.emit('remove')
       }
       var arr = util.parseBindings(fn)
       assert.equal(arr.length, 0)
@@ -98,6 +106,36 @@ describe('#util', function () {
       assert.deepEqual(config.bindings, ['_a', '$b'])
       var res = config.fn(model, util.toString)
       assert.deepEqual(res, '1 2')
+    })
+
+    it('should parse fns', function () {
+      var str = '{fullname()}'
+      var config = util.parseInterpolationConfig(str)
+      var fns = config.fns
+      assert(fns.length === 1)
+      assert.equal(fns[0], 'fullname')
+    })
+
+    it('should parse fns with args', function () {
+      var str = '{fullname(\'x\')}'
+      var config = util.parseInterpolationConfig(str)
+      var fns = config.fns
+      assert(fns.length === 1)
+      assert.equal(fns[0], 'fullname')
+      var model = {
+        fullname: function (s) {
+          return s
+        }
+      }
+      var res = config.fn(model, util.toString)
+      assert.equal(res, 'x')
+    })
+
+    it('should parse multiply fns', function () {
+      var str = '{fullname()} {showme()}'
+      var config = util.parseInterpolationConfig(str)
+      var fns = config.fns
+      assert(fns.length === 2)
     })
   })
 
