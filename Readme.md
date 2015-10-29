@@ -7,6 +7,7 @@
 This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
 
 TODO:
+* Use filters to replace data-format
 * Use wiki for more documentation
 * Some examples
 
