@@ -75,6 +75,15 @@ describe('#util', function () {
       assert.equal(arr.length, 0)
     })
 
+    it('should not throw if first param not defined', function () {
+      var fn = function () {}
+      // var arr = [[true, false], [true, true], [false, false], [false, true]]
+      var arr = [[true, true]]
+      arr.forEach(function (args) {
+        var res = util.parseBindings.apply(util, [fn].concat(args))
+        assert.equal(res.length, 0)
+      })
+    })
   })
 
   describe('.parseInterpolationConfig', function () {
@@ -136,6 +145,16 @@ describe('#util', function () {
       var config = util.parseInterpolationConfig(str)
       var fns = config.fns
       assert(fns.length === 2)
+    })
+
+    it('should parse nested properties', function () {
+      var str = '{to.be.no.one}'
+      var config = util.parseInterpolationConfig(str)
+      var bindings = config.bindings
+      assert(bindings.length === 1)
+      assert(bindings[0] === 'to')
+      var res = config.fn({to:{be:{no:{one:'fine'}}}}, util.toString)
+      assert.equal(res, 'fine')
     })
   })
 
