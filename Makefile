@@ -1,10 +1,11 @@
-example:
-	@open http://localhost:3000/example/index.html
-	@gulp
 
 dev:
 	@open http://localhost:8080/bundle
-	@webpack-dev-server 'mocha!./test/test.js' --inline --hot --module-bind html
+	@webpack-dev-server 'mocha!./test/test_index.js' --inline --hot -d --module-bind html
+
+example:
+	@open http://localhost:3000/example/index.html
+	@gulp
 
 test:
 	@./node_modules/.bin/karma start
