@@ -1,7 +1,7 @@
 
 dev:
 	@open http://localhost:8080/bundle
-	@webpack-dev-server 'mocha!./test/test_index.js' --inline --hot -d --module-bind html
+	@webpack-dev-server 'mocha!./test/test_index.js' --inline --hot --devtool eval
 
 example:
 	@open http://localhost:3000/example/index.html
