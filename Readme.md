@@ -17,10 +17,10 @@ TODO:
 * Bind attribute (especially `src` `herf`) and event handler easily
 * Custom binding API for gobal usage or single reactive instance
 * Performance concerned, use `textContent` for format and text interpolation
-* Safety concerned, values are escaped by default, unescape variable by using `{!name}`
 * ~~Reusable binding for list of reactive works much faster~~
 * Easily works with checkbox(es) and select element
 * Null and undefined values in interpolation would be rendered as empty string
+* support correct [tap-event](https://github.com/chemzqm/tap-event)
 
 ## Install
 
