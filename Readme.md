@@ -7,7 +7,6 @@
 This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
 
 TODO:
-* Bindings analysis and reuse
 * Use wiki for more documentation
 * Some examples
 
@@ -17,7 +16,7 @@ TODO:
 * Bind attribute (especially `src` `herf`) and event handler easily
 * Custom binding API for gobal usage or single reactive instance
 * Performance concerned, use `textContent` for format and text interpolation
-* ~~Reusable binding for list of reactive works much faster~~
+* Reusable binding for list of reactive works much faster
 * Easily works with checkbox(es) and select element
 * Null and undefined values in interpolation would be rendered as empty string
 * support correct [tap-event](https://github.com/chemzqm/tap-event)
