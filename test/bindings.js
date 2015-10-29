@@ -2,7 +2,6 @@
 var assert = require('assert')
 var emitter = require('emitter')
 var Reactive = require('..')
-// var simulateTouch = require('simulate-touch')
 
 function fire (element, event) {
   var e = new UIEvent(event, {
