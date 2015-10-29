@@ -15,7 +15,4 @@ test-coveralls:
 	@node_modules/.bin/karma start --single-run && \
 		cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
-doc:
-	@ghp-import example -n -p
-
 .PHONY: test example
