@@ -227,28 +227,6 @@ describe('#binding', function () {
     })
   })
 
-  describe('.getContext', function () {
-    it('should return model', function () {
-      var delegate = {}
-      var reactive = new Reactive(el, model, {
-        delegate: delegate
-      })
-      var binding = new Binding(reactive)
-      var context = binding.getContext(true)
-      assert.equal(context, model)
-    })
-
-    it('should return delegate', function () {
-      var delegate = {}
-      var reactive = new Reactive(el, model, {
-        delegate: delegate
-      })
-      var binding = new Binding(reactive)
-      var context = binding.getContext()
-      assert.equal(context, delegate)
-    })
-  })
-
   describe('.parseFunctionBindings', function () {
     it('should parse function bindings', function () {
       model.fullname = function () {
