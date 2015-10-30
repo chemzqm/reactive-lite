@@ -15,11 +15,10 @@ TODO:
 
 * Flexible binding fashion, including text-interpolation, and render for different usage
 * Bind attribute (especially `src` `herf`) and event handler easily
-* Custom binding API for gobal usage or single reactive instance
+* Custom binding and filter API for gobal usage or single reactive instance
 * Performance concerned, use `textContent` for text interpolation
 * Reusable binding for list of reactive works much faster
 * Easily works with checkbox(es) and select element
-* Null and undefined values in interpolation would be rendered as empty string
 * support correct [tap-event](https://github.com/chemzqm/tap-event)
 
 ## Install
@@ -80,8 +79,9 @@ document.body.appendChild(reactive.el)
 * `el` could be element or html template string
 * `model` contains attributes for binding to the element and binding functions, should emit `change [name]` event
 * `option` is optional object contains config
-* `option.delegate` contains event handler and/or format and render function(s)
-* `option.bindings` contains bindings for this reactive-lite only
+* `option.delegate` contains event handler and/or render function(s)
+* `option.filters`  contains filters for this reactive instance
+* `option.bindings` contains bindings for this reactive instance
 
 Binding function are searched on `model` first, if not, search delegate instead, throw error if not found
 
@@ -124,10 +124,6 @@ Reactive.createBinding('data-sum', function(prop) {
   })
 })
 ```
-
-## Checkbox and select
-
-## Events
 
 ## MIT license
 Copyright (c) 2015 chemzqm@gmail.com
