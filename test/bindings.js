@@ -123,12 +123,6 @@ describe('#bindings', function () {
       assert.equal(el.getAttribute('href'), url)
     })
 
-    it('should treat null values as empty string', function () {
-      var url = 'http://localhost:3000/?x={x}&y={y}&z={z}'
-      el.setAttribute('data-href', url)
-      Reactive(el, emitter({}))
-      assert.equal(el.getAttribute('href'), url.replace(/\{\w*\}/g, ''))
-    })
   })
 
   describe('on-* events', function () {

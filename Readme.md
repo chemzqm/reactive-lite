@@ -8,6 +8,7 @@ This component is carefully designed and heavily tested, but bugs always exists,
 
 TODO:
 * Use filters to replace data-format
+* Extend filters to pass arguments
 * Use wiki for more documentation
 * Some examples
 

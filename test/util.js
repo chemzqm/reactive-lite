@@ -104,7 +104,7 @@ describe('#util', function () {
       var model = { first: 'tobi', last: 'taxi', fullname: function() {
         return this.first + this.last
       }}
-      var res = config.fn(model, util.toString)
+      var res = config.fn(model, {})
       assert.equal(res, 'tobitaxi')
     })
 
@@ -113,7 +113,7 @@ describe('#util', function () {
       var model = {_a: '1', $b: '2'}
       var config = util.parseInterpolationConfig(str)
       assert.deepEqual(config.bindings, ['_a', '$b'])
-      var res = config.fn(model, util.toString)
+      var res = config.fn(model, {})
       assert.deepEqual(res, '1 2')
     })
 
@@ -136,7 +136,7 @@ describe('#util', function () {
           return s
         }
       }
-      var res = config.fn(model, util.toString)
+      var res = config.fn(model, {})
       assert.equal(res, 'x')
     })
 
@@ -153,7 +153,7 @@ describe('#util', function () {
       var bindings = config.bindings
       assert(bindings.length === 1)
       assert(bindings[0] === 'to')
-      var res = config.fn({to:{be:{no:{one:'fine'}}}}, util.toString)
+      var res = config.fn({to:{be:{no:{one:'fine'}}}}, {})
       assert.equal(res, 'fine')
     })
   })

@@ -43,14 +43,14 @@ describe('#binding', function () {
       assert.equal(el.textContent, model.first + ' ' + model.last)
     })
 
-    it('should render empty string if property is null or undefined', function () {
-      var reactive = new Reactive(el, model)
-      var binding = new Binding(reactive)
-      model.middle = null
-      binding.interpolation('{first}{middle}{top}')
-      binding.active(el)
-      assert.equal(el.textContent, model.first)
-    })
+    //it('should render empty string if property is null or undefined', function () {
+    //  var reactive = new Reactive(el, model)
+    //  var binding = new Binding(reactive)
+    //  model.middle = null
+    //  binding.interpolation('{first}{middle}{top}')
+    //  binding.active(el)
+    //  assert.equal(el.textContent, model.first)
+    //})
 
     it('should react function bindings', function () {
       model.fullname = function () {
