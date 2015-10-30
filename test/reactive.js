@@ -226,6 +226,7 @@ describe('#Reactive', function () {
       model.emit('change age')
       assert.equal(btn.disabled, false)
       r.remove()
+      delete Reactive.bindings['data-usable']
     })
 
     it('should throw when global binding name in use', function () {
