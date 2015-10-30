@@ -162,7 +162,7 @@ describe('#Binding config', function () {
         view.fullname = function (model, el) {
           el.innerHTML = model.first + ' ' + model.last
         }
-        var config = Reactive.generateConfig(el, model, view)
+        var config = Reactive.generateConfig(el, model, {delegate: view})
         var node = el.cloneNode(true)
         var m = assign({}, model)
         emitter(m)
@@ -199,18 +199,18 @@ describe('#Binding config', function () {
         el.setAttribute('on-click', 'speak')
         el.appendChild(document.createElement('div'))
         var fired
-        var delegate = {
+        var view = {
           speak: function (e, obj, element) {
             assert.equal(obj, m)
             assert.equal(element, node)
-            assert.equal(this, delegate)
+            assert.equal(this, view)
             fired = true
           }
         }
-        var config = Reactive.generateConfig(el, model, delegate)
+        var config = Reactive.generateConfig(el, model, {delegate: view})
         var node = el.cloneNode(true)
         var m = assign({}, model)
-        Reactive(node, m, {delegate: delegate, config: config})
+        Reactive(node, m, {delegate: view, config: config})
         node.click()
         assert.equal(fired, true)
       })
@@ -264,7 +264,7 @@ describe('#Binding config', function () {
         }
         var el = document.createElement('div')
         el.setAttribute('data-visible', 'age')
-        var config = Reactive.generateConfig(el, model, {},bindings)
+        var config = Reactive.generateConfig(el, model, {bindings: bindings})
         var node = el.cloneNode(true)
         var m = assign({}, model)
         m.age = 15
