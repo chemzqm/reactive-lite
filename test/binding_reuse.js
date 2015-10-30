@@ -7,13 +7,19 @@ var Binding = require('../lib/binding')
 describe('#Binding resue', function () {
   var el
   var user
-  var view = {
-    renderName: renderName
-  }
+  var view
   beforeEach(function () {
     el = document.createElement('div')
     document.body.appendChild(el)
     user = { id: '22', first: 'sunny', last: 'sick', money: 23231, active: true}
+    view = {
+      renderName: function (model, el) {
+        el.textContent = model.first + model.last
+      },
+      onclick : function () {
+        this.clicked = true
+      }
+    }
   })
 
   afterEach(function () {
@@ -22,23 +28,14 @@ describe('#Binding resue', function () {
     el = null
   })
 
-  function renderName(model, el) {
-    el.textContent = model.first + model.last
-  }
-
   function createReactive() {
     var model = {id: '11', first: 'tobi', last: 'john', money: 111999, active: false}
-    model.renderName = renderName
     emitter(model)
     var r = new Reactive(el, model, {delegate: view, config: []})
     return r
   }
 
   function otherReactive() {
-    user.renderName = renderName
-    user.onclick = function () {
-      this.clicked = true
-    }
     emitter(user)
     var node = el.cloneNode(true)
     var r = new Reactive(node, user, {delegate: view, config: []})
@@ -46,14 +43,14 @@ describe('#Binding resue', function () {
   }
 
   function check(binding, isChecked) {
-    var text = el.textContent
+    var html = el.innerHTML
     var bind = binding.bindings[0]
     var r = otherReactive()
     var element = isChecked ? r.el.firstChild : r.el
     binding = new Binding(r, element)
     binding.bindings.push(bind)
     binding.active(element)
-    assert.equal(el.textContent, text)
+    assert.equal(el.innerHTML, html)
     return r
   }
 
