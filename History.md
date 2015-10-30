@@ -1,3 +1,6 @@
+### 0.3.1
+* not bind the bindings not exist on model
+
 ### 0.3.0
 * remove `data-format`, use filter instead
 * add filter support

@@ -215,18 +215,6 @@ describe('#binding', function () {
     })
   })
 
-  describe('.hasBinding', function () {
-    it('should true', function () {
-      var exist = Binding.hasBinding('on-tap')
-      assert(exist === true)
-    })
-
-    it('should false', function () {
-      var exist = Binding.hasBinding('data-xyz')
-      assert(exist === false)
-    })
-  })
-
   describe('.parseFunctionBindings', function () {
     it('should parse function bindings', function () {
       model.fullname = function () {
