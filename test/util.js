@@ -33,21 +33,12 @@ describe('#util', function () {
       assert.deepEqual(arr, ['$uid', 'first', 'last', '_id'])
     })
 
-    it('should parse this keyword', function () {
-      var fn = function (m) {
-        this.first + this._last + this.$middle
-        m.sex
-      }
-      var arr = util.parseBindings(fn, true, true)
-      assert.equal(arr.length, 4)
-    })
-
     it('should only parse this keyword', function () {
       var fn = function (m) {
         this.first + this._last + this.$middle
         m.sex
       }
-      var arr = util.parseBindings(fn, false, true)
+      var arr = util.parseBindings(fn, false)
       assert.equal(arr.length, 3)
     })
 
@@ -56,16 +47,18 @@ describe('#util', function () {
         this.first + this._last + this.$middle
         m.sex
       }
-      var arr = util.parseBindings(fn, true, false)
+      var arr = util.parseBindings(fn, true)
       assert.deepEqual(arr, ['sex'])
     })
 
     it('should ignore methods', function () {
-      var fn = function () {
+      var fn = function (m) {
         this.dosomething();this.go ();this.on('create')
         this.did  ('f');this.off();this.emit('remove')
+        m.$see();m._fef();m.abc ()
       }
       var arr = util.parseBindings(fn)
+      arr = arr.concat(util.parseBindings(fn, true))
       assert.equal(arr.length, 0)
     })
 
