@@ -240,7 +240,7 @@ describe('#Reactive', function () {
       r.remove()
     })
 
-    it('should not throw when binding name in use', function () {
+    it('should throw when global binding name in use', function () {
       var err
       try {
         Reactive.createBinding('data-href', function () {
@@ -248,7 +248,30 @@ describe('#Reactive', function () {
       } catch (e) {
         err = e
       }
-      assert(typeof err === 'undefined')
+      assert(!!err.message)
+    })
+  })
+
+  describe('Reactive.createFilter', function () {
+    it('shoud create filter', function () {
+      Reactive.createFilter('integer', function (str) {
+        if (!str) return 0
+        var res = parseInt(str, 10)
+        return isNaN(res) ? 0 : res
+      })
+      assert(!!Reactive.filters['integer'])
+      delete Reactive.filters['integer']
+    })
+
+    it('should throw when global filter already defined', function () {
+      var err
+      try {
+        Reactive.createFilter('nonull', function () {
+        })
+      } catch (e) {
+        err =e
+      }
+      assert(!!err.message)
     })
   })
 })

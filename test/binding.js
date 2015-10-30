@@ -43,14 +43,31 @@ describe('#binding', function () {
       assert.equal(el.textContent, model.first + ' ' + model.last)
     })
 
-    //it('should render empty string if property is null or undefined', function () {
-    //  var reactive = new Reactive(el, model)
-    //  var binding = new Binding(reactive)
-    //  model.middle = null
-    //  binding.interpolation('{first}{middle}{top}')
-    //  binding.active(el)
-    //  assert.equal(el.textContent, model.first)
-    //})
+    it('should interpolation buildin filter', function () {
+      var reactive = new Reactive(el, model)
+      var binding = new Binding(reactive)
+      binding.interpolation('{first | uppercase}')
+      binding.active(el)
+      assert.equal(el.textContent, model.first.toUpperCase())
+    })
+
+    it('should interpolation custom filter', function () {
+      var reactive = new Reactive(el, model, {filters: {
+        integer: function (str) {
+          if (!str) return 0
+          var res = parseInt(str, 10)
+          return isNaN(res) ? 0 : res
+        }
+      }})
+      model.weight = '123.456'
+      var binding = new Binding(reactive)
+      binding.interpolation('{weight | integer}')
+      binding.active(el)
+      assert.equal(el.textContent, '123')
+      model.weight = '223.555'
+      model.emit('change weight')
+      assert.equal(el.textContent, '223')
+    })
 
     it('should react function bindings', function () {
       model.fullname = function () {

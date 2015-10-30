@@ -86,15 +86,118 @@ describe('#util', function () {
     })
   })
 
+  describe('.parseFilters', function () {
+
+    var bindings
+    var fns
+    beforeEach(function () {
+      bindings = []
+      fns = []
+    })
+
+    it('should throw if starts with `|`', function () {
+      var err
+      var s = '| first'
+      try {
+        util.parseFilters(s)
+      } catch(e) {
+        err = e
+      }
+      assert(!!err.message)
+    })
+
+    it('should parse single filter', function () {
+      var s = 'first | json'
+      var res = util.parseFilters(s, bindings, fns)
+      assert.deepEqual(bindings, ['first'])
+      assert.deepEqual(fns, [])
+      assert.equal(res, 'filter.json(model.first)')
+    })
+
+    it('should not throw when filter empty', function () {
+      var s = 'first || json|'
+      var res = util.parseFilters(s, bindings, fns)
+      assert.deepEqual(bindings, ['first'])
+      assert.deepEqual(fns, [])
+      assert.equal(res, 'filter.json(model.first)')
+    })
+
+    it('should allow filter chain', function () {
+      var s = 'first | uppercase | reverse'
+      var res = util.parseFilters(s, bindings, fns)
+      assert.deepEqual(bindings, ['first'])
+      assert.deepEqual(fns, [])
+      assert.equal(res, 'filter.reverse(filter.uppercase(model.first))')
+    })
+  })
+
+  describe('.parseFilterNames', function () {
+    it('should be empty', function () {
+      var fn = function () { }
+      var res = util.parseFilterNames(fn)
+      assert.deepEqual(res, [])
+    })
+
+    it('should contain filters ', function () {
+      var fn = function () { filter.reverse(filter.uppercase('abc'))} // eslint-disable-line
+      var res = util.parseFilterNames(fn)
+      assert.deepEqual(res, ['reverse', 'uppercase'])
+    })
+  })
+
+  describe('.parseStringBinding', function () {
+    var bindings
+    var fns
+    beforeEach(function () {
+      bindings = []
+      fns = []
+    })
+
+    it('should trim nested properties', function () {
+      var s = 'first.last'
+      util.parseStringBinding(s, bindings, fns)
+      assert.deepEqual(bindings, ['first'])
+      assert.deepEqual(fns, [])
+    })
+
+    it('should parse single property', function () {
+      var s = 'first'
+      util.parseStringBinding(s, bindings, fns)
+      assert.deepEqual(bindings, ['first'])
+      assert.deepEqual(fns, [])
+    })
+
+    it('should parse function property', function () {
+      var s = 'first()'
+      util.parseStringBinding(s, bindings, fns)
+      assert.deepEqual(bindings, [])
+      assert.deepEqual(fns, ['first'])
+    })
+
+    it('should parse nested function property', function () {
+      var s = 'first.last()'
+      util.parseStringBinding(s, bindings, fns)
+      assert.deepEqual(bindings, ['first'])
+      assert.deepEqual(fns, [])
+    })
+  })
+
   describe('.parseInterpolationConfig', function () {
 
+    it('should output empty when binding string empty', function () {
+      var str = '{ }'
+      var config = util.parseInterpolationConfig(str)
+      assert.equal(config.bindings.length, 0)
+      assert.equal(config.fns.length, 0)
+      assert.equal(config.fn({}), '')
+    })
+
     it('should parse simple string', function () {
-      function es(s) { return s }
       var str = '{first} {second}'
       var config = util.parseInterpolationConfig(str)
       assert.deepEqual(config.bindings, ['first', 'second'])
       var model = {first: 'a', second: 1}
-      assert.equal(config.fn(model, es), 'a 1')
+      assert.equal(config.fn(model), 'a 1')
     })
 
     it('should parse string with function', function () {
