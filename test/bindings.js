@@ -65,19 +65,6 @@ describe('#bindings', function () {
       reactive.remove()
     })
 
-    it('should set correct context for model', function () {
-      el.setAttribute('data-render', 'render')
-      model.render = function (m, node) {
-        assert(this === model)
-        assert(m === model)
-        assert(el === node)
-        node.textContent = m.first + m.last
-      }
-      var reactive = new Reactive(el, model)
-      assert.equal(el.textContent, model.first + model.last)
-      reactive.remove()
-    })
-
     it('should set correct context for delegate', function () {
       el.setAttribute('data-render', 'render')
       var view = {}
@@ -129,11 +116,13 @@ describe('#bindings', function () {
 
     it('should fire events', function () {
       el.setAttribute('on-click', 'onClick')
-      model.onClick = function () {
-        this.age++
-        this.emit('change age')
+      var view = {
+        onClick : function (e, m) {
+          m.age++
+          m.emit('change age')
+        }
       }
-      Reactive(el, model)
+      Reactive(el, model, {delegate: view})
       var age = model.age
       el.click()
       assert.equal(model.age, age + 1)
@@ -143,12 +132,14 @@ describe('#bindings', function () {
 
     it('should remove event listener on remove', function () {
       el.setAttribute('on-click', 'onClick')
-      model.onClick = function () {
-        this.age++
-        this.emit('change age')
+      var view = {
+        onClick : function (e, m) {
+          m.age++
+          m.emit('change age')
+        }
       }
       var age = model.age
-      var reactive = new Reactive(el, model)
+      var reactive = new Reactive(el, model, {delegate: view})
       reactive.remove()
       el.click()
       assert.equal(model.age, age)
@@ -157,12 +148,14 @@ describe('#bindings', function () {
     it('should works with tap event', function (done) {
       el.setAttribute('on-tap', 'onTap')
       var fired
-      model.onTap = function () {
-        this.age++
-        fired = true
-        this.emit('change age')
+      var view = {
+        onTap: function (e, m) {
+          m.age++
+          fired = true
+          m.emit('change age')
+        }
       }
-      var reactive = new Reactive(el, model)
+      var reactive = new Reactive(el, model, {delegate: view})
       var age = model.age
       fire(el, 'touchstart')
       setTimeout(function () {

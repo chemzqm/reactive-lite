@@ -86,10 +86,11 @@ describe('#binding', function () {
 
   describe('.add', function () {
     it('should add binding', function () {
-      model.render = function (model, el) {
+      var view = {}
+      view.render = function (model, el) {
         el.textContent =  'hi, ' + model.first + model.last
       }
-      var reactive = new Reactive(el, model)
+      var reactive = new Reactive(el, model, {delegate: view})
       var binding = new Binding(reactive)
       binding.add('data-render', 'render')
       binding.active(el)

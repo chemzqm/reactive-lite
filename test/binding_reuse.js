@@ -7,6 +7,9 @@ var Binding = require('../lib/binding')
 describe('#Binding resue', function () {
   var el
   var user
+  var view = {
+    renderName: renderName
+  }
   beforeEach(function () {
     el = document.createElement('div')
     document.body.appendChild(el)
@@ -27,7 +30,7 @@ describe('#Binding resue', function () {
     var model = {id: '11', first: 'tobi', last: 'john', money: 111999, active: false}
     model.renderName = renderName
     emitter(model)
-    var r = new Reactive(el, model, {config: []})
+    var r = new Reactive(el, model, {delegate: view, config: []})
     return r
   }
 
@@ -38,7 +41,7 @@ describe('#Binding resue', function () {
     }
     emitter(user)
     var node = el.cloneNode(true)
-    var r = new Reactive(node, user, {config: []})
+    var r = new Reactive(node, user, {delegate: view, config: []})
     return r
   }
 
@@ -81,7 +84,7 @@ describe('#Binding resue', function () {
   it('should reuse event binding', function () {
     var reactive = createReactive()
     var fired
-    reactive.model.onclick = user.onclick = function (e, model, el) {
+    reactive.delegate.onclick = user.onclick = function (e, model, el) {
       assert.equal(model, user)
       assert.equal(el, r.el)
       fired = true

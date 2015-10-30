@@ -4,8 +4,6 @@
 [![Coverage Status](https://coveralls.io/repos/chemzqm/reactive-lite/badge.svg?branch=master&service=github)](https://coveralls.io/github/chemzqm/reactive-lite?branch=master)
 [![DOC](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)
 
-This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
-
 TODO:
 * Extend filters to pass arguments
 * Use wiki for more documentation
@@ -14,7 +12,7 @@ TODO:
 ## Features
 
 * Flexible binding fashion, including text-interpolation, and render for different usage
-* Bind attribute (especially `src` `herf`) and event handler easily
+* Bind attribute (especially `src` `href` `style`) and event handler easily
 * Custom binding and filter API for gobal usage or single reactive instance
 * Performance concerned, use `textContent` for text interpolation
 * Reusable binding for list of reactive works much faster
@@ -27,20 +25,8 @@ TODO:
 
 ## Basic
 
-* **interpolate** `<span>{first} {last}</span>`
-
-``` js
-function(money) { return '$' + money }
-```
-
+* **interpolation** `<span>{first} {last}</span>`
 * **render** `<div data-render="checkActive" >Show on active</div>` with function like
-
-``` js
-function(model, el) { el.style.display = model.active ?'block': 'none'}
-```
-
-The function is called with `model` `element`, context is preserved
-
 * **attr-interpolation** `<a data-href="http://github.com/{uid}">{name}</a>`
 * **event binding** `<button on-click="onBtnClick">click me</button>` with function like
 ``` js
@@ -52,8 +38,6 @@ function (e, model, element) {
   }
 }
 ```
-Context (this reference) is preserved to model or delegate object
-
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
 
 ## Usage
@@ -74,12 +58,12 @@ document.body.appendChild(reactive.el)
 ```
 ## API
 
-### Reactive(el, model, [option])
+### Reactive(el, model, option)
 
 * `el` could be element or html template string
-* `model` contains attributes for binding to the element and binding functions, should emit `change [name]` event
+* `model` contains attributes for binding to the element, and emit `change [name]` event for reactive
 * `option` is optional object contains config
-* `option.delegate` contains event handler and/or render function(s)
+* `option.delegate` contains event handler and render function(s)
 * `option.filters`  contains filters for this reactive instance
 * `option.bindings` contains bindings for this reactive instance
 

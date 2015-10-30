@@ -154,19 +154,20 @@ describe('#Binding config', function () {
       })
 
       it('should render and react with new element and model', function () {
+        var view = {}
         var el = document.createElement('div')
         el.innerHTML = '<span data-render="fullname"></span>'
         el.appendChild(document.createElement('div'))
         var html = el.innerHTML
-        model.fullname = function (model, el) {
+        view.fullname = function (model, el) {
           el.innerHTML = model.first + ' ' + model.last
         }
-        var config = Reactive.generateConfig(el, model)
+        var config = Reactive.generateConfig(el, model, view)
         var node = el.cloneNode(true)
         var m = assign({}, model)
         emitter(m)
         m.first = 'james'
-        Reactive(node, m, {config: config})
+        Reactive(node, m, {delegate: view, config: config})
         assert.equal(el.innerHTML, html)
         assert.equal(node.firstChild.innerHTML, m.first + ' ' + m.last)
         m.first = 'bond'

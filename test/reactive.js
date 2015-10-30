@@ -129,17 +129,6 @@ describe('#Reactive', function () {
   })
 
   describe('.getDelegate', function () {
-    it('should get function from model', function () {
-      var func = model.format = function (first) {
-        return 'hi, ' + first
-      }
-      var r = new Reactive(el, model, {
-        delegate: { format: function () { } }
-      })
-      var config = r.getDelegate('format')
-      assert.equal(config.fn, func)
-      assert.equal(config.model, true)
-    })
 
     it('should get function from delegate', function () {
       var delegate = {}
@@ -147,9 +136,8 @@ describe('#Reactive', function () {
         return 'hi, ' + first
       }
       var r = new Reactive(el, model, { delegate: delegate })
-      var config = r.getDelegate('format')
-      assert.equal(config.fn, func)
-      assert.equal(config.model, false)
+      var fn = r.getDelegate('format')
+      assert.equal(fn, func)
     })
 
     it('should throw when not find delegate function', function () {
