@@ -7,17 +7,16 @@
 This component is carefully designed and heavily tested, but bugs always exists, feel free to fire a issue.
 
 TODO:
-* Use filters to replace data-format
 * Extend filters to pass arguments
 * Use wiki for more documentation
 * Some examples
 
 ## Features
 
-* Flexible binding fashion, including text-interpolation, format and render for different usage
+* Flexible binding fashion, including text-interpolation, and render for different usage
 * Bind attribute (especially `src` `herf`) and event handler easily
 * Custom binding API for gobal usage or single reactive instance
-* Performance concerned, use `textContent` for format and text interpolation
+* Performance concerned, use `textContent` for text interpolation
 * Reusable binding for list of reactive works much faster
 * Easily works with checkbox(es) and select element
 * Null and undefined values in interpolation would be rendered as empty string
@@ -30,13 +29,10 @@ TODO:
 ## Basic
 
 * **interpolate** `<span>{first} {last}</span>`
-* **format** `<div data-format="formatMoney">money count: {money}</div>` with function like:
 
 ``` js
 function(money) { return '$' + money }
 ```
-
-No context for format, the result is rendered with `el.textContent`
 
 * **render** `<div data-render="checkActive" >Show on active</div>` with function like
 
@@ -60,10 +56,6 @@ function (e, model, element) {
 Context (this reference) is preserved to model or delegate object
 
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
-
-**NOTICE**:
-
-* Interpolation and format result is rendered with textContent, just for performance.
 
 ## Usage
 
