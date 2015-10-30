@@ -116,18 +116,6 @@ describe('#Binding config', function () {
         assert.equal(config.length, 1)
       })
 
-      it('should throw when data-format element has child element', function () {
-        var el = document.createElement('div')
-        el.setAttribute('data-format', 'fullname')
-        el.appendChild(document.createElement('div'))
-        var err
-        try {
-          Reactive.generateConfig(el, model)
-        } catch (e) {
-          err = e
-        }
-        assert(!!err.message)
-      })
     })
 
     describe('single binding', function () {
@@ -163,27 +151,6 @@ describe('#Binding config', function () {
         m.first = 'bond'
         m.emit('change first')
         assert.equal(node.firstChild.textContent, m.first)
-      })
-
-      it('should format and react with new element and model', function () {
-        var el = document.createElement('div')
-        el.innerHTML = '<span data-format="format">{first}</span>'
-        el.appendChild(document.createElement('div'))
-        var html = el.innerHTML
-        var reverse = model.format = function (s) {
-          return s.split(/\s*/).reverse().join('')
-        }
-        var config = Reactive.generateConfig(el, model)
-        var node = el.cloneNode(true)
-        var m = assign({}, model)
-        emitter(m)
-        m.first = 'james'
-        Reactive(node, m, {config: config})
-        assert.equal(el.innerHTML, html)
-        assert.equal(node.firstChild.innerHTML, reverse(m.first))
-        m.first = 'bond'
-        m.emit('change first')
-        assert.equal(node.firstChild.innerHTML, reverse(m.first))
       })
 
       it('should render and react with new element and model', function () {

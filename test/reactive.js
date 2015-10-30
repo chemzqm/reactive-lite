@@ -72,28 +72,6 @@ describe('#Reactive', function () {
       r.remove()
     })
 
-    it('should not interpolate text node with data-format', function () {
-      el.textContent = '{first}'
-      el.setAttribute('data-format', 'format')
-      model.format = function (first) {return first.split(/\s*/).reverse().join('')}
-      var r = new Reactive(el, model)
-      assert.equal(model._callbacks['$change first'].length, 1)
-      r.remove()
-    })
-
-    it('should throw when data-format element has child element', function () {
-      model.format = function () { }
-      el.setAttribute('data-format', 'format')
-      el.appendChild(document.createElement('div'))
-      var err
-      try {
-        new Reactive(el, model)
-      } catch (e) {
-        err = e
-      }
-      assert(/parse/.test(err.message))
-    })
-
     it('should ignore comment node', function () {
       var node = domify('<!--<div>{first}</div>-->')
       el.appendChild(node)

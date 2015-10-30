@@ -171,32 +171,6 @@ describe('#util', function () {
     })
   })
 
-  describe('.parseFormatConfig', function () {
-    it('should works with no binding', function () {
-      var config = util.parseFormatConfig(' middle ')
-      assert.deepEqual(config.bindings, [])
-      var f = function (s) { return s}
-      var str = config.fn({}, f)
-      assert.equal(str, ' middle ')
-    })
-
-    it('should parse simple string', function () {
-      var config = util.parseFormatConfig(' {first} middle {last}')
-      assert.deepEqual(config.bindings, ['first', 'last'])
-      var f = function (word) { return word.split(/\s*/).reverse().join('') }
-      var str = config.fn({first: 'abc', last: 'def'}, f)
-      assert.equal(str, ' cba middle fed')
-    })
-
-    it('shou ouput empty string with null property', function () {
-      var config = util.parseFormatConfig(' {first} middle {last} ')
-      assert.deepEqual(config.bindings, ['first', 'last'])
-      var f = function (word) { return word.split(/\s*/).reverse().join('') }
-      var str = config.fn({}, f)
-      assert.equal(str, '  middle  ')
-    })
-  })
-
   describe('.walk', function () {
     it('should process all the node', function () {
       var i = 0

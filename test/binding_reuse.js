@@ -19,38 +19,12 @@ describe('#Binding resue', function () {
     el = null
   })
 
-  /**
-  * return the integer format of `n`, ie:
-  * 1000.01 => 1,000
-  * return empty string if n can't be parse to number
-  *
-  * @param {Number | String} n
-  * @return {String}
-  * @api public
-  *
-  */
-  function integer(n) {
-    n = parseInt(n, 10)
-    if (isNaN(n)) return ''
-    n = n.toString()
-    var arr = []
-    var l = n.length
-    for (var i = l - 1; i >= 0; i--) {
-      arr.push(n[i])
-      if ((i !== 0) && ((l - i) % 3 === 0)) {
-        arr.push(',')
-      }
-    }
-    return arr.reverse().join('')
-  }
-
   function renderName(model, el) {
     el.textContent = model.first + model.last
   }
 
   function createReactive() {
     var model = {id: '11', first: 'tobi', last: 'john', money: 111999, active: false}
-    model.integer = integer
     model.renderName = renderName
     emitter(model)
     var r = new Reactive(el, model, {config: []})
@@ -58,7 +32,6 @@ describe('#Binding resue', function () {
   }
 
   function otherReactive() {
-    user.integer = integer
     user.renderName = renderName
     user.onclick = function () {
       this.clicked = true
@@ -87,14 +60,6 @@ describe('#Binding resue', function () {
     binding.interpolation(el.textContent)
     var r = check(binding)
     assert.equal(r.el.textContent, user.first + ' ' + user.last)
-  })
-
-  it('should reuse format', function () {
-    el.innerHTML = '{money}'
-    var binding = new Binding(createReactive(), el)
-    binding.add('data-format', 'integer')
-    var r = check(binding)
-    assert.equal(r.el.textContent, integer(user.money))
   })
 
   it('should reuse render', function () {

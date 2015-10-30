@@ -23,10 +23,7 @@ describe('#bindings', function () {
       first: 'tobi',
       last: 'texi',
       money: 333,
-      age: 22,
-      formatMoney: function (money) {
-        return '$' + money
-      }
+      age: 22
     }
     emitter(model)
     document.body.appendChild(el)
@@ -46,49 +43,6 @@ describe('#bindings', function () {
     el.appendChild(input)
     return input
   }
-
-  describe('data-format', function () {
-
-    it('should reactive', function () {
-      el.setAttribute('data-format', 'formatMoney')
-      el.textContent = 'like {money}'
-      var reactive = Reactive(el, model)
-      assert.equal(el.textContent, 'like $' + model.money)
-      model.money = 456
-      model.emit('change money')
-      assert.equal(el.textContent, 'like $' + model.money)
-      reactive.remove()
-      model.money = 777
-      model.emit('change money')
-      assert(el.textContent !== 'like $' + model.money)
-    })
-
-    it('should set window context', function () {
-      el.setAttribute('data-format', 'formatMoney')
-      el.textContent = '{money}'
-      var fired
-      model.formatMoney = function (money) {
-        fired = true
-        assert(this === window)
-        return '$' + money
-      }
-      var r = new Reactive(el, model)
-      assert(fired === true)
-      r.remove()
-    })
-
-    it('should render empty string with null values', function () {
-      el.setAttribute('data-format', 'formatMoney')
-      el.textContent = '{money} {count}'
-      model.money = null
-      model.formatMoney = function (money) {
-        return '$' + money
-      }
-      var r = new Reactive(el, model)
-      assert.equal(el.textContent, '$ $')
-      r.remove()
-    })
-  })
 
   describe('data-render', function () {
 

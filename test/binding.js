@@ -52,18 +52,6 @@ describe('#binding', function () {
       assert.equal(el.textContent, model.first)
     })
 
-    it('should prevent text-interpolation when element has data-format', function () {
-      model.formatId = function (id) {
-        return id.toString().split('').reverse().join('')
-      }
-      el.textContent = '{id}'
-      el.setAttribute('data-format', 'formatId')
-      var reactive = new Reactive(el, model)
-      var binding = new Binding(reactive)
-      binding.interpolation('{id}')
-      assert(binding.bindings.length === 1)
-    })
-
     it('should react function bindings', function () {
       model.fullname = function () {
         return this.first + ',' + this.last
