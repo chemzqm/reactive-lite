@@ -124,6 +124,62 @@ describe('#util', function () {
     })
   })
 
+  describe('filter arguments', function () {
+    var bindings
+    var fns
+    beforeEach(function () {
+      bindings = []
+      fns = []
+    })
+
+    it('should allow number', function () {
+      var s = 'first | json 2'
+      var res = util.parseFilters(s, bindings, fns)
+      assert.equal(res, 'filter.json(model.first, 2)')
+    })
+
+    it('should allow float number', function () {
+      var s = 'first | plus 3.5'
+      var res = util.parseFilters(s, bindings, fns)
+      assert.equal(res, 'filter.plus(model.first, 3.5)')
+    })
+
+    it('should allow string', function () {
+      var s = 'first | currency "$"'
+      var res = util.parseFilters(s, bindings, fns)
+      assert.equal(res, 'filter.currency(model.first, "$")')
+    })
+
+    it('should allow string with spaces', function () {
+      var s = 'first | replace "blue red"'
+      var res = util.parseFilters(s, bindings, fns)
+      assert.equal(res, 'filter.replace(model.first, "blue red")')
+    })
+
+    it('should allow single quote string', function () {
+      var s = 'first | currency \'$\''
+      var res = util.parseFilters(s, bindings, fns)
+      assert.equal(res, 'filter.currency(model.first, \'$\')')
+    })
+
+    it('should allow boolean', function () {
+      var s = 'first | currency true false'
+      var res = util.parseFilters(s, bindings, fns)
+      assert.equal(res, 'filter.currency(model.first, true, false)')
+    })
+
+    it('should throw if argument not boolean string number', function () {
+      var err
+      try {
+        var s = 'first | currency unknown'
+        util.parseFilters(s, bindings, fns)
+      } catch (e) {
+        err = e
+      }
+      assert(!!err.message)
+    })
+  })
+
   describe('.parseFilterNames', function () {
     it('should be empty', function () {
       var fn = function () { }
