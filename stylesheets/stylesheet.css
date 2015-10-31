@@ -561,7 +561,6 @@ aside a.button {
 }
 
 code, pre {
-  margin-bottom: 30px;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   font-size: 13px;
   color: #222;
@@ -574,10 +573,11 @@ code {
 }
 
 pre {
-  padding: 20px;
+  margin-bottom: 20px;
+  padding: 5px;
   overflow: auto;
   text-shadow: none;
-  background: #fff;
+  background: #fdf6e3;
   border: solid 1px #f2f2f2;
 }
 pre code {
@@ -888,9 +888,14 @@ footer a:hover {
   }
 }
 
+footer p {
+  text-align: center;
+}
+
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) { }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) { }
+
 

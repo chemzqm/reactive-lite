@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Reactive-lite by chemzqm</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Reactive-lite</h1>
+        <h2>Simplified yet powerful reactive component</h2>
+        <a href="https://github.com/chemzqm/reactive-lite" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+        <h2 id="binding">Binding</h2>
+<p>  Binding is used for create reusable function for element and model, there are some build in bindings available, including</p>
+<ul>
+<li><a href="./interpolation.html#attr-interpolation">attribute interpolation</a></li>
+<li><a href="./interpolation.html#data-render">data-render</a></li>
+<li><a href="./interpolation.html#data-html">data-html</a></li>
+<li><a href="./checked.html">data-checked &amp; data-selected</a></li>
+</ul>
+<h3 id="-define-you-own-binding-is-simple-own-binding-"><a href="#own-binding">Define you own binding is simple</a></h3>
+<p>Assume you want to create a binding to disable an element by user age, do it like this:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">data-check</span>=<span class="value" style="color:#2aa198;">"age"</span>&gt;</span>Only displayed when age &gt; 18<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> user = <span class="keyword" style="color:#859900;">new</span> User(...)
+<span class="keyword" style="color:#859900;">var</span> reactive = <span class="keyword" style="color:#859900;">new</span> Reactive(el, user, {
+  bindings: {
+    <span class="string" style="color:#2aa198;">"data-check"</span>: <span class="function"><span class="keyword" style="color:#859900;">function</span> <span class="params">(prop)</span> {</span>
+      <span class="keyword" style="color:#859900;">this</span>.bind(prop, <span class="function"><span class="keyword" style="color:#859900;">function</span> <span class="params">(model, el)</span> {</span>
+        <span class="keyword" style="color:#859900;">if</span>(model[prop] &gt;= <span class="number" style="color:#2aa198;">18</span>) {
+           el.style.display = <span class="string" style="color:#2aa198;">'block'</span>
+        } <span class="keyword" style="color:#859900;">else</span> {
+           el.style.display = <span class="string" style="color:#2aa198;">'none'</span>
+        }
+      })
+    }
+  }
+})</code></pre><p>The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">this.bind</code> call accept two arguments, first one is the property to react with (could also be array of properties),
+the second argument is the function that would be called when reactive instance init or the model emit a change event with the property in first argument.</p>
+<p>Notice that the function <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-check</code> referred to is reusable, by using the passed arguments, it&#39;s not binded to specific model or element.</p>
+<p>The custom binding could also be defined globally.  You can create a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-sum</code> binding like this:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> Reactive = require(<span class="string" style="color:#2aa198;">'reactive-lite'</span>)
+Reactive.createBinding(<span class="string" style="color:#2aa198;">'data-sum'</span>, <span class="keyword" style="color:#859900;">function</span>(prop) {
+  <span class="keyword" style="color:#859900;">var</span> arr = prop.split(<span class="string" style="color:#2aa198;">','</span>)
+  <span class="keyword" style="color:#859900;">this</span>.bind(arr, <span class="keyword" style="color:#859900;">function</span>(model, el) {
+    <span class="keyword" style="color:#859900;">var</span> res = arr.reduce(<span class="keyword" style="color:#859900;">function</span>(pre, v) {
+        <span class="keyword" style="color:#859900;">return</span> pre + Number(v)
+    }, <span class="number" style="color:#2aa198;">0</span>)
+    el.textContent = res
+  })
+})</code></pre><p>And use it like:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">data-sum</span>=<span class="value" style="color:#2aa198;">"x,y,z"</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>To avoid unnecessary mistakes, the global binding could not override the default bindings.</p>
+<h3 id="-define-you-own-filter-own-filter-"><a href="#own-filter">Define you own filter</a></h3>
+<p>Like <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">delegate</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">binding</code>, filters all passed through the third argument when constructing reactive instance,
+if you need a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">numberFormat</code> that transform input value to number, you can write code like this:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> reactive = <span class="keyword" style="color:#859900;">new</span> Reactive(el, user, {
+  filters: {
+    numberFormat: <span class="function"><span class="keyword" style="color:#859900;">function</span> <span class="params">(val)</span> {</span>
+      <span class="keyword" style="color:#859900;">if</span> (!val) <span class="keyword" style="color:#859900;">return</span> <span class="number" style="color:#2aa198;">0</span>
+      val = parseInt(val, <span class="number" style="color:#2aa198;">10</span>)
+      <span class="keyword" style="color:#859900;">if</span> (isNaN(val)) <span class="keyword" style="color:#859900;">return</span> <span class="number" style="color:#2aa198;">0</span>
+      <span class="keyword" style="color:#859900;">return</span> val.toString()
+    }
+  }
+})</code></pre><pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span>&gt;</span>{weight | numberFormat}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p><em>space(s) aside <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">|</code> are optional, just for nice looking</em></p>
+<p>You can pass arguments to your filter ,like:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span>&gt;</span> {attribute | myformat 2 null true 'tobi'}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>The arguments are seperated by space(one or more), there are <strong>only</strong> four types of arguments allowed, including:
+String (wrapped by single/double quote), Number, Boolean, null.  Reactive would throw error if the argument type not
+recogized.  The content inside filter function is filter itself, no dynamic resolve is supported.</p>
+<p>Custom filters could also be defined globally:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">Reactive.createFilter(<span class="string" style="color:#2aa198;">'data-check'</span>, <span class="keyword" style="color:#859900;">function</span>(prop) {
+  ...
+})</code></pre><p>It&#39;s recommended not to use global definition, you can have all your filters in one file, when need, require the file and
+merge all of the filters into your reactive instance option.</p>
+<p>  <em>Next: <a href="./events.html">events handler</a></em></p>
+
+        </section>
+
+        <aside id="sidebar">
+        <h3><a href="./index.html">Home</a> </h3>
+<ul>
+<li><a href="./interpolation.html">interpolation</a></li>
+<li><a href="./interpolation.html#filter">filter</a></li>
+<li><a href="./interpolation.html#data-render">data-render</a></li>
+<li><a href="./binding.html">binding</a></li>
+<li><a href="./events.html">events</a></li>
+<li><a href="./checked.html">checked &amp; selected</a></li>
+<li><a href="./config.html">Config reuse</a></li>
+</ul>
+
+        </aside>
+      </div>
+    </div>
+    
+    <script src="js/component.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      !(function() {
+        var affix = require('affix');
+        var el = document.getElementById('sidebar');
+        affix(el, {
+          top: 50,
+          bottom: 200
+        });
+        var showTarget = window.onhashchange = function() {
+          var hash = location.hash
+          if (!hash) return window.scrollTo(0,0)
+          var el = document.querySelector('#main-content a[href="' + hash +'"]')
+          if (el) el.scrollIntoView()
+        }
+        showTarget()
+        function setActive() {
+          var str = location.href.match(/[^/]*$/)[0]
+          if (!str) return
+          var links = document.querySelectorAll('#sidebar a')
+          ;[].slice.call(links).forEach(function(link) {
+            var href = link.getAttribute('href')
+            if (href === './' + str) {
+              link.classList.add('active')
+            } else {
+              link.classList.remove('active')
+            }
+          })
+        }
+        setActive()
+      })()
+    </script>
+    <footer>
+      <p>Made By <a href="http://weibo.com/chemzqm">@chemzqm</a> with simple <a href="http://component.io/">components</a> and <a href="https://webpack.github.io/">webpack</a></p>
+      <p><strong>Mit license</strong></p>
+    </footer>
+  </body>
+</html>

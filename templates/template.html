@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Reactive-lite by chemzqm</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Reactive-lite</h1>
+        <h2>Simplified yet powerful reactive component</h2>
+        <a href="https://github.com/chemzqm/reactive-lite" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+        {{content}}
+        </section>
+
+        <aside id="sidebar">
+        {{sidebar}}
+        </aside>
+      </div>
+    </div>
+    {{script}}
+    <script src="js/component.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      !(function() {
+        var affix = require('affix');
+        var el = document.getElementById('sidebar');
+        affix(el, {
+          top: 50,
+          bottom: 200
+        });
+        var showTarget = window.onhashchange = function() {
+          var hash = location.hash
+          if (!hash) return window.scrollTo(0,0)
+          var el = document.querySelector('#main-content a[href="' + hash +'"]')
+          if (el) el.scrollIntoView()
+        }
+        showTarget()
+        function setActive() {
+          var str = location.href.match(/[^/]*$/)[0]
+          if (!str) return
+          var links = document.querySelectorAll('#sidebar a')
+          ;[].slice.call(links).forEach(function(link) {
+            var href = link.getAttribute('href')
+            if (href === './' + str) {
+              link.classList.add('active')
+            } else {
+              link.classList.remove('active')
+            }
+          })
+        }
+        setActive()
+      })()
+    </script>
+    <footer>
+      <p>Made By <a href="http://weibo.com/chemzqm">@chemzqm</a> with simple <a href="http://component.io/">components</a> and <a href="https://webpack.github.io/">webpack</a></p>
+      <p><strong>Mit license</strong></p>
+    </footer>
+  </body>
+</html>

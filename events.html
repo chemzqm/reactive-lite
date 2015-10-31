@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Reactive-lite by chemzqm</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Reactive-lite</h1>
+        <h2>Simplified yet powerful reactive component</h2>
+        <a href="https://github.com/chemzqm/reactive-lite" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+        <h2 id="events">Events</h2>
+<p>You can alias an event handler with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">on-*event*</code> syntax in your html</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">button</span> <span class="attribute" style="color:#b58900;">on-click</span>=<span class="value" style="color:#2aa198;">"onclick"</span>&gt;</span>submit<span class="tag">&lt;/<span class="title" style="color:#268bd2;">button</span>&gt;</span></code></pre><p>The handler should be defined in the delegate object, which is passed in the third (<code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">option</code>) argument when constructing reactive</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> reactive = <span class="keyword" style="color:#859900;">new</span> Reactive(el, user, {
+  delegate: {
+    onclick: <span class="keyword" style="color:#859900;">function</span>(e, model, el) {
+      <span class="comment" style="color:#93a1a1;font-style:italic;">// do somthing with model and element</span>
+      assert(model === user)
+    }
+  }
+})</code></pre><p><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">model</code> is passed as second argument, so you can define your delegate some where else (instead of using closure), the
+content (this reference) is preserved to the delegate object to make it self contained, which also means easy to test with.</p>
+<h3 id="supported-events">Supported events</h3>
+<ul>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">change</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">tap</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">touchstart</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">touchend</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">click</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">dblclick</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">mousedown</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">mouseup</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">mousemove</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">mouseenter</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">mouseleave</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">scroll</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">blur</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">focus</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">input</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">submit</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">keydown</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">keypress</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">keyup</code></li>
+</ul>
+<p>Reactive would unbind the related event handlers when it&#39;s destroied by <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.remove()</code></p>
+<p>  <em>Next: <a href="./checked.html">checked and selected</a></em></p>
+
+        </section>
+
+        <aside id="sidebar">
+        <h3><a href="./index.html">Home</a> </h3>
+<ul>
+<li><a href="./interpolation.html">interpolation</a></li>
+<li><a href="./interpolation.html#filter">filter</a></li>
+<li><a href="./interpolation.html#data-render">data-render</a></li>
+<li><a href="./binding.html">binding</a></li>
+<li><a href="./events.html">events</a></li>
+<li><a href="./checked.html">checked &amp; selected</a></li>
+<li><a href="./config.html">Config reuse</a></li>
+</ul>
+
+        </aside>
+      </div>
+    </div>
+    
+    <script src="js/component.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      !(function() {
+        var affix = require('affix');
+        var el = document.getElementById('sidebar');
+        affix(el, {
+          top: 50,
+          bottom: 200
+        });
+        var showTarget = window.onhashchange = function() {
+          var hash = location.hash
+          if (!hash) return window.scrollTo(0,0)
+          var el = document.querySelector('#main-content a[href="' + hash +'"]')
+          if (el) el.scrollIntoView()
+        }
+        showTarget()
+        function setActive() {
+          var str = location.href.match(/[^/]*$/)[0]
+          if (!str) return
+          var links = document.querySelectorAll('#sidebar a')
+          ;[].slice.call(links).forEach(function(link) {
+            var href = link.getAttribute('href')
+            if (href === './' + str) {
+              link.classList.add('active')
+            } else {
+              link.classList.remove('active')
+            }
+          })
+        }
+        setActive()
+      })()
+    </script>
+    <footer>
+      <p>Made By <a href="http://weibo.com/chemzqm">@chemzqm</a> with simple <a href="http://component.io/">components</a> and <a href="https://webpack.github.io/">webpack</a></p>
+      <p><strong>Mit license</strong></p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Reactive-lite by chemzqm</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Reactive-lite</h1>
+        <h2>Simplified yet powerful reactive component</h2>
+        <a href="https://github.com/chemzqm/reactive-lite" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+        <h2 id="data-checked-and-data-selected">data-checked and data-selected</h2>
+<p><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-checked</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-selected</code> could be easily used with checkbox(es) and select options.</p>
+<p>Assume your model has a boolean attribute named <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">active</code>, with the binding element:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"checkbox"</span> <span class="attribute" style="color:#b58900;">name</span>=<span class="value" style="color:#2aa198;">"active"</span> <span class="attribute" style="color:#b58900;">data-checked</span>=<span class="value" style="color:#2aa198;">"active"</span> /&gt;</span></code></pre><p>The element would be checked when the value is true, and not checked when it&#39;s false.</p>
+<p>You can omit the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-check</code> value if it&#39;s the same as name of checkbox, for the above example, it&#39;s equal to</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"checkbox"</span> <span class="attribute" style="color:#b58900;">name</span>=<span class="value" style="color:#2aa198;">"active"</span> <span class="attribute" style="color:#b58900;">data-checked</span> /&gt;</span></code></pre><p>For multiply checkboxes, you should have an array which hold all the checked values, eg:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> user = <span class="keyword" style="color:#859900;">new</span> User({
+  pets: [<span class="string" style="color:#2aa198;">'pig'</span>, <span class="string" style="color:#2aa198;">'dog'</span>]
+})</code></pre><p>To have the pets checked, write html like:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">name</span>=<span class="value" style="color:#2aa198;">"pets"</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"checkbox"</span> <span class="attribute" style="color:#b58900;">value</span>=<span class="value" style="color:#2aa198;">"pig"</span> <span class="attribute" style="color:#b58900;">data-checked</span>&gt;</span>pig
+<span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">name</span>=<span class="value" style="color:#2aa198;">"pets"</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"checkbox"</span> <span class="attribute" style="color:#b58900;">value</span>=<span class="value" style="color:#2aa198;">"dog"</span> <span class="attribute" style="color:#b58900;">data-checked</span>&gt;</span>dog
+<span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">name</span>=<span class="value" style="color:#2aa198;">"pets"</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"checkbox"</span> <span class="attribute" style="color:#b58900;">value</span>=<span class="value" style="color:#2aa198;">"cat"</span> <span class="attribute" style="color:#b58900;">data-checked</span>&gt;</span>cat
+<span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">name</span>=<span class="value" style="color:#2aa198;">"pets"</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"checkbox"</span> <span class="attribute" style="color:#b58900;">value</span>=<span class="value" style="color:#2aa198;">"monkey"</span> <span class="attribute" style="color:#b58900;">data-checked</span>&gt;</span>monkey</code></pre><p>Reactive would check whether the value of checkbox is in pets array, and set checked attribute accordingly.</p>
+<p>One thing should be noticed is reactive would not be noticed when the array changed, you may have to emit change event
+every time array changed by hand, like:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">user.emit(<span class="string" style="color:#2aa198;">'change pets'</span>)</code></pre><p><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-selected</code> works the same way as <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-checked</code>, you can make use of both single/multiply select easily.</p>
+<p>  <em>Next: <a href="./config.html">Reuse config</a></em></p>
+
+        </section>
+
+        <aside id="sidebar">
+        <h3><a href="./index.html">Home</a> </h3>
+<ul>
+<li><a href="./interpolation.html">interpolation</a></li>
+<li><a href="./interpolation.html#filter">filter</a></li>
+<li><a href="./interpolation.html#data-render">data-render</a></li>
+<li><a href="./binding.html">binding</a></li>
+<li><a href="./events.html">events</a></li>
+<li><a href="./checked.html">checked &amp; selected</a></li>
+<li><a href="./config.html">Config reuse</a></li>
+</ul>
+
+        </aside>
+      </div>
+    </div>
+    
+    <script src="js/component.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      !(function() {
+        var affix = require('affix');
+        var el = document.getElementById('sidebar');
+        affix(el, {
+          top: 50,
+          bottom: 200
+        });
+        var showTarget = window.onhashchange = function() {
+          var hash = location.hash
+          if (!hash) return window.scrollTo(0,0)
+          var el = document.querySelector('#main-content a[href="' + hash +'"]')
+          if (el) el.scrollIntoView()
+        }
+        showTarget()
+        function setActive() {
+          var str = location.href.match(/[^/]*$/)[0]
+          if (!str) return
+          var links = document.querySelectorAll('#sidebar a')
+          ;[].slice.call(links).forEach(function(link) {
+            var href = link.getAttribute('href')
+            if (href === './' + str) {
+              link.classList.add('active')
+            } else {
+              link.classList.remove('active')
+            }
+          })
+        }
+        setActive()
+      })()
+    </script>
+    <footer>
+      <p>Made By <a href="http://weibo.com/chemzqm">@chemzqm</a> with simple <a href="http://component.io/">components</a> and <a href="https://webpack.github.io/">webpack</a></p>
+      <p><strong>Mit license</strong></p>
+    </footer>
+  </body>
+</html>
