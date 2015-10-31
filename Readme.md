@@ -4,9 +4,9 @@
 [![Coverage Status](https://coveralls.io/repos/chemzqm/reactive-lite/badge.svg?branch=master&service=github)](https://coveralls.io/github/chemzqm/reactive-lite?branch=master)
 [![DOC](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)
 
+[Web site](http://chemzqm.github.io/reactive-lite/)
+
 TODO:
-* Extend filters to pass arguments
-* Use wiki for more documentation
 * Some examples
 
 ## Features
