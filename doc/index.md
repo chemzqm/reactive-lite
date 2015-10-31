@@ -19,5 +19,9 @@
 
   * **Reusable binding**  can make high level component (like list, grid) render extremely fast.
 
+
+  *Next: [Use text interpolation](./interpolation.html)*
+
 ### Demo
+
 
