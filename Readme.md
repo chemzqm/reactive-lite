@@ -29,15 +29,6 @@ TODO:
 * **render** `<div data-render="checkActive" >Show on active</div>` with function like
 * **attr-interpolation** `<a data-href="http://github.com/{uid}">{name}</a>`
 * **event binding** `<button on-click="onBtnClick">click me</button>` with function like
-``` js
-function (e, model, element) {
-  if (model.active) {
-    element.disabled = true
-  } else {
-    element.disabled = false
-  }
-}
-```
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
 
 ## Usage
@@ -73,41 +64,7 @@ Binding function are searched on `model` first, if not, search delegate instead,
 
 Unbind all events and remove `reactive.el`
 
-## Advance usage
-
-### Custom binding
-
-* Create `data-visible` binding to dynamically display element by check the `prop` value from model
-
-``` html
-<div data-visible="active"></div>
-```
-``` js
-var Reactive = require('reactive-lite')
-Reactive.createBinding('data-visible', function(prop) {
-  this.bind(prop, function(model, el) {
-    el.style.display = model[prop] ? 'block' : 'none'
-  })
-})
-```
-
-* Create `data-sum` binding to dynamically sum the properties
-
-``` html
-<div data-sum="x,y,z"></div>
-```
-``` js
-var Reactive = require('reactive-lite')
-Reactive.createBinding('data-sum', function(prop) {
-  var arr = prop.split(',')
-  this.bind(arr, function(model, el) {
-    var res = arr.reduce(function(pre, v) {
-        return pre + Number(v)
-    }, 0)
-    el.textContent = res
-  })
-})
-```
+The [Web site](http://chemzqm.github.io/reactive-lite/) contains full documentation
 
 ## MIT license
 Copyright (c) 2015 chemzqm@gmail.com
