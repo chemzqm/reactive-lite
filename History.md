@@ -1,3 +1,7 @@
+### 0.3.3
+* allow custom binding names starts not with `data-`
+* fix interpolation not works with `\n` charactor
+
 ### 0.3.2
 * add `touchstart` `touchend` support
 * code refactor

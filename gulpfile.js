@@ -12,7 +12,9 @@ var myConfig = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: []
+    loaders: [
+      { test: /\.html$/, loader: 'html-loader' }
+    ]
   }
 }
 // for debugging

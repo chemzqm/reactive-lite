@@ -2,42 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>Deom of reactive-lite</title>
+  <link rel="stylesheet" href="stylesheet.css" type="text/css" media="screen" title="no title" charset="utf-8">
   <style>
-    body {
-      padding: 100px;
+    .counter-digit {
+      display: inline-block;
+      position: relative;
+      background: linear-gradient(#3c3c3c, #656565);
+      color: white;
+      border-radius: 3px;
+      line-height: 2rem;
+      font-weight: bold;
+      margin-right:3px;
+      width: 1rem;
+      text-align: center;
+      text-shadow: 0 1px 1px rgba(0,0,0,.3);
     }
-    #user {
-      widht: 600px;
-      margin: 0 auto;
+    input[type="text"] {
+      min-width: 300px;
     }
   </style>
 </head>
 <body>
-  <div id="user">
-    <input type="text" on-input="changeName">
-    <div data-id="{id}">{first} {last}</div>
-    <div data-format="formatMoney"></div>
-    <div>
-      <label><input type="checkbox" name="active" data-checked="active" on-change="toggleStat">active</label>
+  <header>
+    <div class="inner">
+      <h1>Reactive-lite</h1>
+      <h2>Simplified yet powerful reactive component</h2>
+      <a href="https://github.com/chemzqm/reactive-lite" class="button"><small>View project on</small> GitHub</a>
     </div>
-    <div>
-      <select name="country" id="country" class="select">
-        <option value=""></option>
-        <option value="America" data-selected="country">America</option>
-        <option value="Canda" data-selected="country">Canda</option>
-        <option value="China" data-selected="country">China</option>
-      </select>
+  </header>
+
+  <div id="content-wrapper">
+    <div class="inner clearfix">
+      <section id="main-content">
+      <div id="user">
+        <div>
+          <h3>Basic text-interpolationt</h3>
+          <div>User name is {first} {last}, works at {company}</div>
+        </div>
+        <div>
+          <h3>text interpolation by function</h3>
+          <div>Tags: <code>{showTags()}</code></div>
+        </div>
+        <div>
+          <h3>text interpolation with filter</h3>
+          <div>Balance with decimal: {balance | currency true}</div>
+        </div>
+        <div>
+          <h3>attribute interpolation</h3>
+          <div>
+            <img data-src="{picture}" alt="picture"/>
+            <p>Feed back at <a data-href="mailto:{email}?subject=feedback">{email}</a></p>
+          </div>
+        </div>
+        <div>
+          <h3>data-html</h3>
+          <div>
+            <p data-html="about"></p>
+          </div>
+        </div>
+        <div>
+          <h3>data-render</h3>
+          <div>
+            <p data-render="renderCounter"></p>
+          </div>
+        </div>
+        <div>
+          <h3>event handler</h3>
+          <div>
+            <div><input type="text" name="address" on-input="update" data-value="{address}"/></div>
+            <div>
+              {address}
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Custom binding</h3>
+          <div>
+            <div><span moment="registered" format="MMM Do YY"></span></div>
+          </div>
+        </div>
+        <div>
+          <h3>Custom filter</h3>
+          <div> Longitude: {longitude | integer}, latitude: {latitude | integer} </div>
+        </div>
+        <div>
+          <h3>user data</h3>
+          <pre><code>{attrs | json}</code></pre>
+        </div>
+      </div>
+      </section>
     </div>
-    <section class="checkbox-list">
-      <label><input name="pets" type="checkbox" value="pig" data-checked="pets">pig</label>
-      <label><input name="pets" type="checkbox" value="dog" data-checked="pets">dog</label>
-      <label><input name="pets" type="checkbox" value="cat" data-checked="pets">cat</label>
-      <label><input name="pets" type="checkbox" value="monkey" data-checked="pets">monkey</label>
-    </section>
-    <div><a data-href="http://localhost:3000/{id}">user {id}</a></div>
-    <div data-render="checkStat">hide when stat is false</div>
-    <button on-click="addMoney">add money</button>
   </div>
   <script src="./bundle.js" type="text/javascript" charset="utf-8"></script>
 </body>
