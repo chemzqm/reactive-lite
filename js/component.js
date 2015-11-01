@@ -223,15 +223,15 @@ function elementInViewport(el) {
 var sideLinks = [].slice.call(document.querySelectorAll('#sidebar li> a'))
 function highlight() {
   if (!/interpolation\.html/.test(location.pathname)) return
-  var links = document.querySelectorAll('h3 > a')
+  var links = document.querySelectorAll('h3')
   var arr = [].slice.call(links)
-  arr = arr.filter(function (link) {
-    var href = link.getAttribute('href')
-    return /(filter|text-interpolation|data-render)$/.test(href)
+  arr = arr.filter(function (el) {
+    var id = el.getAttribute('id')
+    return /(filter|text-interpolation|data-render)$/.test(id)
   })
   for (var i = 0, l = arr.length; i < l; i++) {
-    var link = arr[i]
-    if (elementInViewport(link)) {
+    var node = arr[i]
+    if (elementInViewport(node)) {
       var el = sideLinks[i]
       sideLinks.forEach(function(l) {
         if (l === el) {

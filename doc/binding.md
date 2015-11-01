@@ -7,7 +7,7 @@
   * [data-html](./interpolation.html#data-html)
   * [data-checked & data-selected](./checked.html)
 
-### [Define you own binding is simple](#own-binding)
+<h3 id="own-binding">Define your own binding is simple</h3>
 
 Assume you want to create a binding to disable an element by user age, do it like this:
 
@@ -60,7 +60,7 @@ And use it like:
 
 To avoid unnecessary mistakes, the global binding could not override the default bindings.
 
-### [Define you own filter](#own-filter)
+<h3 id="own-filter">Define you own filter</h3>
 
 Like `delegate` and `binding`, filters all passed through the third argument when constructing reactive instance,
 if you need a `numberFormat` that transform input value to number, you can write code like this:

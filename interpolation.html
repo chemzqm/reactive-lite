@@ -27,7 +27,8 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-        <h3 id="-define-text-interpolation-text-interpolation-"><a href="#text-interpolation">Define text interpolation</a></h3>
+        <h3 id="text-interpolation">Define text interpolation</h3>
+
 <p>A basic exmaple:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">id</span>=<span class="value" style="color:#2aa198;">"user"</span>&gt;</span> {first} {last}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> model = require(<span class="string" style="color:#2aa198;">'model-component'</span>)
 <span class="keyword" style="color:#859900;">var</span> Reactive = require(<span class="string" style="color:#2aa198;">'reactive-lite'</span>)
@@ -45,19 +46,43 @@
 <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">last</code> attribute on model like <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">user.first = &#39;john&#39;</code>, the reactive would be noticed and change the view correspondingly.</p>
 <p>You can have interpolation in text-node with silbings, like:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">id</span>=<span class="value" style="color:#2aa198;">"user"</span>&gt;</span><span class="tag">&lt;<span class="title" style="color:#268bd2;">span</span>&gt;</span>First name is<span class="tag">&lt;/<span class="title" style="color:#268bd2;">span</span>&gt;</span> {first} <span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>The reactivity only happens on text-node.</p>
+<p>You can use function in interpolation, like:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">id</span>=<span class="value" style="color:#2aa198;">"user"</span>&gt;</span>fullname is {fullname()} {first} <span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>If you have <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fullname</code> function in the model:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">user.fullname = <span class="keyword" style="color:#859900;">function</span>() {
+  <span class="keyword" style="color:#859900;">return</span> <span class="keyword" style="color:#859900;">this</span>.first + <span class="string" style="color:#2aa198;">','</span> + <span class="keyword" style="color:#859900;">this</span>.last
+}</code></pre><p>The function result will be rendered and the textContent would react the change of <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">first</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">last</code> attributes.</p>
 <p><a href="#data-html"></a>
 <strong>Notice</strong> that for performance, text interpolation use <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">el.textContent</code> for rendering, you can use <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-html</code> to render html, like:</p>
-<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">data-html</span>=<span class="value" style="color:#2aa198;">"description"</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">description</code> value of model would be set to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">el.innerHTML</code></p>
-<h3 id="-define-attribute-interpolation-attr-interpolation-"><a href="#attr-interpolation">Define attribute interpolation</a></h3>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">data-html</span>=<span class="value" style="color:#2aa198;">"description"</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">description</code> value of model would be set to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">el.innerHTML</code>.</p>
+<p>If the output html is not just the attribute, you can use <a href="#data-render">data-render</a> for that, which gives you freedom to control <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">model</code> and binding <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">element</code>.</p>
+<p>You can also make the binding reusable by <a href="./binding.html#own-binding">create a binding</a></p>
+<h3 id="how-works">How does the interpolation works?</h3>
+
+<p>It just generate functions for each interpolation, for the interpolation <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">{first}</code> ,the function would be:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="function"><span class="keyword" style="color:#859900;">function</span> <span class="params">(model)</span> {</span>
+  <span class="keyword" style="color:#859900;">return</span> model.first
+}</code></pre><p>For function <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fulllname</code>, the function is:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="function"><span class="keyword" style="color:#859900;">function</span> <span class="params">(model)</span> {</span>
+  <span class="keyword" style="color:#859900;">return</span> model.fullname()
+}</code></pre><p>The only thing have to do is prefix the attribute with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">model.</code></p>
+<p>For the interpolation with filter like <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">first | uppercase</code>, just wrap the result like:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="function"><span class="keyword" style="color:#859900;">function</span> <span class="params">(model, filter)</span> {</span>
+  <span class="keyword" style="color:#859900;">return</span> filter.uppercase(model.first)
+}</code></pre><p>Parsing the reactive attributes from function is also quite simple, just find the function and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">toString()</code>, by
+using a regex <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">/\bthis\.([\w_$]+)\b(?!([\w$_]|\s*\())</code>, it can get all the attributes used by <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">this.attribute</code>.</p>
+<p>For the attribute used by the form <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">this.[&#39;attribute&#39;]</code>, reactive would not be noticed.</p>
+<h3 id="attr-interpolation">Define attribute interpolation</h3>
+
 <p>Define attribute interpolation is the same like text interpolation, except that the real attribute would be set
 without <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-</code> prefix, eg:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">a</span> <span class="attribute" style="color:#b58900;">data-href</span>=<span class="value" style="color:#2aa198;">"https:/github.com/{name}/{repo}"</span>&gt;</span>link<span class="tag">&lt;/<span class="title" style="color:#268bd2;">a</span>&gt;</span></code></pre><p>would be changed to something like:</p>
-<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">a</span> <span class="attribute" style="color:#b58900;">href</span>=<span class="value" style="color:#2aa198;">"https:/github.com/chemzqm/model"</span>&gt;</span>link<span class="tag">&lt;/<span class="title" style="color:#268bd2;">a</span>&gt;</span></code></pre><p><a href="https://github.com/chemzqm/reactive-lite/blob/master/lib/bindings.js#L9-L23">Here</a> is the available <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-attribute</code> list.</p>
-<p>The reason for the attribute transform is that interpolation on attribute in some browser would be consider invalid and
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">a</span> <span class="attribute" style="color:#b58900;">href</span>=<span class="value" style="color:#2aa198;">"https:/github.com/chemzqm/model"</span>&gt;</span>link<span class="tag">&lt;/<span class="title" style="color:#268bd2;">a</span>&gt;</span></code></pre><p>The reason for the attribute transform is that interpolation on attribute in some browser would be consider invalid and
 tripped the browser (eg: <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">style</code> attribute on ie)</p>
 <p>If there is no interpolation, the attribute would also be transformed with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-</code> prefix tripped</p>
-<h3 id="-use-filter-to-format-interpolation-filter-"><a href="#filter">Use filter to format interpolation</a></h3>
-<p>You can make use filter(s) to format the output in interpolation, eg:</p>
+<p><a href="https://github.com/chemzqm/reactive-lite/blob/master/lib/bindings.js#L9-L23">Here</a> is the available <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-attribute</code> list.</p>
+<h3 id="filter">Use filter to format interpolation</h3>
+
+<p>You can use filter(s) to format the output in interpolation, eg:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">id</span>=<span class="value" style="color:#2aa198;">"user"</span>&gt;</span> {first | uppercase}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>the textContent would be uppercase (like: &#39;TOBI&#39;) correspondingly</p>
 <p>Filters can be chained, eg:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">id</span>=<span class="value" style="color:#2aa198;">"user"</span>&gt;</span> {first | uppercase | reverse}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>the result would be uppercase and then reversed.</p>
@@ -70,7 +95,8 @@ tripped the browser (eg: <code style="margin:0 0.1em;padding:0 0.2em;background-
 }</code></pre><p>Filters can also be used for attribute interpolation</p>
 <p>The buildin filter list can be found <a href="https://github.com/chemzqm/reactive-lite/blob/master/lib/filter.js">here</a></p>
 <p>Want to build your own filter?  See <a href="./binding.html#own-filter">Define your own filter</a></p>
-<h3 id="-use-data-render-for-render-other-component-data-render-"><a href="#data-render">Use data-render for render other component</a></h3>
+<h3 id="data-render">Use data-render for render other component</h3>
+
 <p>Assume that you have a nice looking count component, for count display:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">data-render</span>=<span class="value" style="color:#2aa198;">"renderCount"</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> model = <span class="keyword" style="color:#859900;">new</span> Model(<span class="string" style="color:#2aa198;">'Count'</span>).attr(<span class="string" style="color:#2aa198;">'total'</span>)
 <span class="keyword" style="color:#859900;">var</span> count = <span class="keyword" style="color:#859900;">new</span> model({total: <span class="number" style="color:#2aa198;">100</span>})
@@ -83,10 +109,10 @@ tripped the browser (eg: <code style="margin:0 0.1em;padding:0 0.2em;background-
       el.appendChild(component.el)
     }
   }
-})</code></pre><p>The delegate config is used for holding the functions for <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-render</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">on-*event*</code> defined event handlers.
-The data-render handler would accept corresponding <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">model</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">element</code> as arguments, and the context (this reference)
-is preserved to delegate it self.  Without using of closure, the delegate function could be reused for higher level
-component (like list).</p>
+})</code></pre><p>The delegate config is used for holding the functions for <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-render</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">on-*event*</code> defined event handlers.</p>
+<p>The data-render handler would accept corresponding <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">model</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">element</code> as arguments, and the context (this reference)
+is preserved to delegate it self.</p>
+<p>Without using of closure, the delegate function could be reused for higher level component (like list).</p>
 <p>  <em>Next: <a href="./binding.html">Custom binding and filter</a></em></p>
 
         </section>
@@ -116,13 +142,6 @@ component (like list).</p>
           top: 50,
           bottom: 200
         });
-        var showTarget = window.onhashchange = function() {
-          var hash = location.hash
-          if (!hash) return window.scrollTo(0,0)
-          var el = document.querySelector('#main-content a[href="' + hash +'"]')
-          if (el) el.scrollIntoView()
-        }
-        showTarget()
         function setActive() {
           var str = location.href.match(/[^/]*$/)[0]
           if (!str) return

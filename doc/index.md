@@ -2,8 +2,10 @@
 
   Reactive-lite is aimed to be a simplified reactive functionality only library, with flexible binding styles and speed fast.
 
-  In order to keep reactive simple, it works on optioned model emitter, your model have to emit `change prop` event on change
+  In order to keep reactive simple, it works on opinionated model emitter, your model have to emit `change prop` event on change
   and the event have to be accepted by `on` and removed by `off` method, one example is [component-model](https://www.npmjs.com/package/model-component)
+
+  For more detail of the opinionated model, check out [how it works](./interpolation#how-works)
 
 ### Basic Features
 
@@ -17,7 +19,7 @@
 
   * **Touch support**  `touchstart` `touchend` and correct [tap-event](https://github.com/chemzqm/tap-event) are supported.
 
-  * **Reusable binding**  can make high level component (like list, grid) render extremely fast.
+  * **Reusable config**  can make high level component(like list) render extremely fast, [explanation](./config.html)
 
 
   *Next: [Use text interpolation](./interpolation.html)*

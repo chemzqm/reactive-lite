@@ -45,13 +45,6 @@
           top: 50,
           bottom: 200
         });
-        var showTarget = window.onhashchange = function() {
-          var hash = location.hash
-          if (!hash) return window.scrollTo(0,0)
-          var el = document.querySelector('#main-content a[href="' + hash +'"]')
-          if (el) el.scrollIntoView()
-        }
-        showTarget()
         function setActive() {
           var str = location.href.match(/[^/]*$/)[0]
           if (!str) return

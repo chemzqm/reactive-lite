@@ -29,8 +29,9 @@
         <section id="main-content">
         <h3 id="design-philosophy">Design Philosophy</h3>
 <p>  Reactive-lite is aimed to be a simplified reactive functionality only library, with flexible binding styles and speed fast.</p>
-<p>  In order to keep reactive simple, it works on optioned model emitter, your model have to emit <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">change prop</code> event on change
+<p>  In order to keep reactive simple, it works on opinionated model emitter, your model have to emit <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">change prop</code> event on change
   and the event have to be accepted by <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">on</code> and removed by <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">off</code> method, one example is <a href="https://www.npmjs.com/package/model-component">component-model</a></p>
+<p>  For more detail of the opinionated model, check out <a href="./interpolation#how-works">how it works</a></p>
 <h3 id="basic-features">Basic Features</h3>
 <ul>
 <li><p><strong>Bind model properties</strong>  in three ways, including interpolation with filter(s), data-render and custom binding.</p>
@@ -43,7 +44,7 @@
 </li>
 <li><p><strong>Touch support</strong>  <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">touchstart</code> <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">touchend</code> and correct <a href="https://github.com/chemzqm/tap-event">tap-event</a> are supported.</p>
 </li>
-<li><p><strong>Reusable binding</strong>  can make high level component (like list, grid) render extremely fast.</p>
+<li><p><strong>Reusable config</strong>  can make high level component(like list) render extremely fast, <a href="./config.html">explanation</a></p>
 </li>
 </ul>
 <p>  <em>Next: <a href="./interpolation.html">Use text interpolation</a></em></p>
@@ -76,13 +77,6 @@
           top: 50,
           bottom: 200
         });
-        var showTarget = window.onhashchange = function() {
-          var hash = location.hash
-          if (!hash) return window.scrollTo(0,0)
-          var el = document.querySelector('#main-content a[href="' + hash +'"]')
-          if (el) el.scrollIntoView()
-        }
-        showTarget()
         function setActive() {
           var str = location.href.match(/[^/]*$/)[0]
           if (!str) return

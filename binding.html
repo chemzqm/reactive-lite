@@ -35,7 +35,8 @@
 <li><a href="./interpolation.html#data-html">data-html</a></li>
 <li><a href="./checked.html">data-checked &amp; data-selected</a></li>
 </ul>
-<h3 id="-define-you-own-binding-is-simple-own-binding-"><a href="#own-binding">Define you own binding is simple</a></h3>
+<h3 id="own-binding">Define your own binding is simple</h3>
+
 <p>Assume you want to create a binding to disable an element by user age, do it like this:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">data-check</span>=<span class="value" style="color:#2aa198;">"age"</span>&gt;</span>Only displayed when age &gt; 18<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> user = <span class="keyword" style="color:#859900;">new</span> User(...)
 <span class="keyword" style="color:#859900;">var</span> reactive = <span class="keyword" style="color:#859900;">new</span> Reactive(el, user, {
@@ -65,7 +66,8 @@ Reactive.createBinding(<span class="string" style="color:#2aa198;">'data-sum'</s
   })
 })</code></pre><p>And use it like:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">data-sum</span>=<span class="value" style="color:#2aa198;">"x,y,z"</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>To avoid unnecessary mistakes, the global binding could not override the default bindings.</p>
-<h3 id="-define-you-own-filter-own-filter-"><a href="#own-filter">Define you own filter</a></h3>
+<h3 id="own-filter">Define you own filter</h3>
+
 <p>Like <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">delegate</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">binding</code>, filters all passed through the third argument when constructing reactive instance,
 if you need a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">numberFormat</code> that transform input value to number, you can write code like this:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> reactive = <span class="keyword" style="color:#859900;">new</span> Reactive(el, user, {
@@ -116,13 +118,6 @@ merge all of the filters into your reactive instance option.</p>
           top: 50,
           bottom: 200
         });
-        var showTarget = window.onhashchange = function() {
-          var hash = location.hash
-          if (!hash) return window.scrollTo(0,0)
-          var el = document.querySelector('#main-content a[href="' + hash +'"]')
-          if (el) el.scrollIntoView()
-        }
-        showTarget()
         function setActive() {
           var str = location.href.match(/[^/]*$/)[0]
           if (!str) return
