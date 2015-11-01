@@ -245,4 +245,10 @@ function highlight() {
   }
 }
 window.addEventListener('scroll', highlight);
+var affix = require('affix');
+var el = document.getElementById('sidebar');
+affix(el, {
+  top: 50,
+  bottom: 200
+});
 })()

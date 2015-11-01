@@ -128,6 +128,7 @@ is preserved to delegate it self.</p>
 <li><a href="./checked.html">checked &amp; selected</a></li>
 <li><a href="./config.html">Config reuse</a></li>
 </ul>
+<h3><a href="./demo.html">Demo</a> </h3>
 
         </aside>
       </div>
@@ -136,12 +137,6 @@ is preserved to delegate it self.</p>
     <script src="js/component.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       !(function() {
-        var affix = require('affix');
-        var el = document.getElementById('sidebar');
-        affix(el, {
-          top: 50,
-          bottom: 200
-        });
         function setActive() {
           var str = location.href.match(/[^/]*$/)[0]
           if (!str) return

@@ -15,3 +15,7 @@ files.forEach(function (file) {
     .replace('{{script}}', '')
   fs.writeFileSync(name, res, 'utf8')
 })
+
+var content = fs.readFileSync(path.resolve(__dirname, 'templates/demo.html'), 'utf8')
+var res = content.replace('{{sidebar}}', sidebar)
+fs.writeFileSync(path.resolve(__dirname, 'demo.html'), res, 'utf8')

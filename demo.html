@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deom of reactive-lite</title>
+  <link rel="stylesheet" href="./stylesheets/stylesheet.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="./stylesheets/solarized_light.css" />
+  <style>
+    .counter-digit {
+      display: inline-block;
+      position: relative;
+      background: linear-gradient(#3c3c3c, #656565);
+      color: white;
+      border-radius: 3px;
+      line-height: 2rem;
+      font-weight: bold;
+      margin-right:3px;
+      width: 1rem;
+      text-align: center;
+      text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    }
+    input[type="text"] {
+      min-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="inner">
+      <h1>Reactive-lite</h1>
+      <h2>Simplified yet powerful reactive component</h2>
+      <a href="https://github.com/chemzqm/reactive-lite" class="button"><small>View project on</small> GitHub</a>
+    </div>
+  </header>
+
+  <div id="content-wrapper">
+    <div class="inner clearfix">
+      <section id="main-content">
+      <h2 id="basic">Demo</h2>
+      <div id="user">
+        <div>
+          <h3>Basic text-interpolationt</h3>
+          <div>User name is {first} {last}, works at {company}</div>
+          <pre data-skip><code>
+&lt;div&gt;User name is &lcub;first} &lcub;last}, works at &lcub;company}&lt;/div&gt;
+          </code></pre>
+        </div>
+        <div>
+          <h3>text interpolation by function</h3>
+          <div>Tags: <code>{showTags()}</code></div>
+          <pre data-skip><code>
+&lt;div&gt;Tags: &lt;code&gt;&lcub;showTags()}&lt;/code&gt;&lt;/div&gt;
+          </code></pre>
+        </div>
+        <div>
+          <h3>text interpolation with filter</h3>
+          <div>Balance with decimal: {balance | currency true}</div>
+          <pre data-skip><code>
+&lt;div&gt;Balance with decimal: &lcub;balance | currency true}&lt;/div&gt;
+          </code></pre>
+        </div>
+        <div>
+          <h3>attribute interpolation</h3>
+          <div>
+            <img data-src="{picture}" alt="picture"/>
+            <p>Feed back at <a data-href="mailto:{email}?subject=feedback">{email}</a></p>
+            <pre data-skip><code>
+&lt;img data-src="&lcub;picture}" alt="picture"/&gt;
+&lt;p&gt;Feed back at &lt;a data-href="mailto:&lcub;email}?subject=feedback"&gt;&lcub;email}&lt;/a&gt;&lt;/p&gt;
+            </code></pre>
+          </div>
+        </div>
+        <div>
+          <h3>data-html</h3>
+          <div>
+            <p data-html="about"></p>
+            <pre data-skip><code>
+&lt;p&gt; data-html="about"&gt;&lt;/p&gt;
+            </code></pre>
+          </div>
+        </div>
+        <div>
+          <h3>data-render</h3>
+          <div>
+            <div data-render="renderCounter" style="float:left"></div>
+            <input type="number" name="balance" id="balance" data-value="{balance}" on-input="update"/>
+            <pre data-skip><code>
+&lt;div data-render="renderCounter"&gt;&lt;/div&gt;
+            </code></pre>
+            <pre data-skip><code>
+renderCounter: function (model, node) {
+  if (!this.counter) {
+    var counter = this.counter = new Counter
+    node.appendChild(counter.el)
+    counter.digits(5)
+    counter.update(model.balance)
+  } else {
+    this.counter.update(model.balance)
+  }
+}
+            </code></pre>
+          </div>
+        </div>
+        <div>
+          <h3>event handler</h3>
+          <div>
+            <div><input type="text" name="address" on-input="update" data-value="{address}"/></div>
+            <div>
+              {address}
+            </div>
+            <pre data-skip><code>
+&lt;div&gt;&lt;input type="text" name="address" on-input="update" data-value="{address}"/&gt;&lt;/div&gt;
+            </code></pre>
+            <pre data-skip><code>
+update: function (e, model, node) {
+  var attr = node.getAttribute('name')
+  var val = node.value
+  if (attr in model) {
+    model[attr] = val
+  }
+}
+            </code></pre>
+          </div>
+        </div>
+        <div>
+          <h3>Custom binding</h3>
+          <div>
+            <div><span moment="registered" format="MMM Do YY"></span></div>
+            <pre data-skip><code>
+&lt;div&gt;&lt;span moment="registered" format="MMM Do YY"&gt;&lt;/span&gt;&lt;/div&gt;
+            </code></pre>
+            <pre data-skip><code>
+moment: function (attr) {
+  this.bind(attr, function (model, node) {
+    var format = node.getAttribute('format')
+    node.textContent = moment(model[attr]).format(format)
+  })
+}
+            </code></pre>
+          </div>
+        </div>
+        <div>
+          <h3>Custom filter</h3>
+          <div> Longitude: {longitude | integer}, latitude: {latitude | integer} </div>
+          <pre data-skip><code>
+&lt;div&gt; Longitude: {longitude | integer}, latitude: {latitude | integer} &lt;/div&gt;
+          </code></pre>
+          <pre data-skip><code>
+integer: function (val) {
+  if (!val) return 0
+  return parseInt(val, 10)
+}
+          </code></pre>
+        </div>
+        <div>
+          <h3>Javascript code</h3>
+          <pre data-skip><code>
+var User = Model('User')
+var user = new User(attrs)
+user.showTags = function () {
+  return this.tags.join(',')
+}
+var delegate = {
+  update: function (e, model, node) {
+    var attr = node.getAttribute('name')
+    var val = node.value
+    if (attr in model) {
+      model[attr] = val
+    }
+  },
+  renderCounter: function (model, node) {
+    if (!this.counter) {
+      var counter = this.counter = new Counter
+      node.appendChild(counter.el)
+      counter.digits(5)
+      counter.update(model.balance)
+    } else {
+      this.counter.update(model.balance)
+    }
+  }
+}
+var bindings = {
+  moment: function (attr) {
+    this.bind(attr, function (model, node) {
+      var format = node.getAttribute('format')
+      node.textContent = moment(model[attr]).format(format)
+    })
+  }
+}
+
+var filters = {
+  integer: function (val) {
+    if (!val) return 0
+    return parseInt(val, 10)
+  }
+}
+var el = document.getElementById('user')
+Reactive(el, user, {
+  delegate: delegate,
+  bindings: bindings,
+  filters: filters
+})
+
+
+          </code></pre>
+        </div>
+      </div>
+      </section>
+      <aside id="sidebar">
+        <h3><a href="./index.html">Home</a> </h3>
+<ul>
+<li><a href="./interpolation.html">interpolation</a></li>
+<li><a href="./interpolation.html#filter">filter</a></li>
+<li><a href="./interpolation.html#data-render">data-render</a></li>
+<li><a href="./binding.html">binding</a></li>
+<li><a href="./events.html">events</a></li>
+<li><a href="./checked.html">checked &amp; selected</a></li>
+<li><a href="./config.html">Config reuse</a></li>
+</ul>
+<h3><a href="./demo.html">Demo</a> </h3>
+
+      </aside>
+    </div>
+  </div>
+  <script src="./js/bundle.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/component.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    hljs.initHighlightingOnLoad();
+  </script>
+</body>
+</html>
