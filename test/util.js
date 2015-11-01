@@ -308,6 +308,26 @@ describe('#util', function () {
       var res = config.fn({to:{be:{no:{one:'fine'}}}}, {})
       assert.equal(res, 'fine')
     })
+
+    it('should allow double quote', function () {
+      var str = '"name" {first}'
+      var config = util.parseInterpolationConfig(str)
+      var bindings = config.bindings
+      assert(bindings.length === 1)
+      assert(bindings[0] === 'first')
+      var res = config.fn({first: 'tobi'}, {})
+      assert.equal(res, '"name" tobi')
+    })
+
+    it('should allow carrige return', function () {
+      var str = ' \n{first}\n '
+      var config = util.parseInterpolationConfig(str)
+      var bindings = config.bindings
+      assert(bindings.length === 1)
+      assert(bindings[0] === 'first')
+      var res = config.fn({first: 'tobi'}, {})
+      assert.equal(res, ' \ntobi\n ')
+    })
   })
 
   describe('.hasInterpolation', function () {

@@ -43,6 +43,15 @@ describe('#binding', function () {
       assert.equal(el.textContent, model.first + ' ' + model.last)
     })
 
+    it('should works with no interpolation', function () {
+      var reactive = new Reactive(el, model)
+      var text = el.textContent
+      var binding = new Binding(reactive)
+      binding.interpolation(' first ')
+      binding.active(el)
+      assert.equal(el.textContent, text)
+    })
+
     it('should interpolation buildin filter', function () {
       var reactive = new Reactive(el, model)
       var binding = new Binding(reactive)
