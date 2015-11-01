@@ -66,6 +66,21 @@ Unbind all events and remove `reactive.el`
 
 The [Web site](http://chemzqm.github.io/reactive-lite/) contains full documentation
 
+## Check out demo
+
+```
+git clone git@github.com:chemzqm/reactive-lite.git
+cd reactive-lite && npm install
+gulp
+open http://localhost:3000/example/index.html
+```
+
+## Test
+```
+npm install
+make test
+```
+
 ## MIT license
 Copyright (c) 2015 chemzqm@gmail.com
 
