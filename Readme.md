@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/chemzqm/reactive-lite/badge.svg?branch=master&service=github)](https://coveralls.io/github/chemzqm/reactive-lite?branch=master)
 [![DOC](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)
 
-[Deom](http://chemzqm.github.io/reactive-lite/demo.html)
+[Demo](http://chemzqm.github.io/reactive-lite/demo.html)
 
 [Web site](http://chemzqm.github.io/reactive-lite/)
 
