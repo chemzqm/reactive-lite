@@ -3,14 +3,13 @@ var Counter = require('component-counter')
 var Reactive = require('..')
 var Model = require('model')
 var attrs = {
-  '_id': '5635c4d881b2a48bf034dc45',
   'isActive': true,
   'balance': 3038,
+  'company': 'NEUROCELL',
   'picture': 'http://placehold.it/32x32',
   'age': 33,
   'first': 'Rollins',
   'last': 'Curtis',
-  'gender': 'male',
   'email': 'rollinscurtis@delphide.com',
   'phone': '+1 (868) 450-3366',
   'address': '986 Williams Place, Gulf, Maryland, 1806',
@@ -30,39 +29,44 @@ var user = new User(attrs)
 user.showTags = function () {
   return this.tags.join(',')
 }
-
-var el = document.getElementById('user')
-Reactive(el, user, {
-  delegate: {
-    // event handler
-    update: function (e, model, node) {
-      var attr = node.getAttribute('name')
-      var val = node.value
+var delegate = {
+  update: function (e, model, node) {
+    var attr = node.getAttribute('name')
+    var val = node.value
+    if (attr in model) {
       model[attr] = val
-    },
-    renderCounter: function (model, node) {
-      if (!this.counter) {
-        var counter = this.counter = new Counter
-        node.appendChild(counter.el)
-        counter.digits(5)
-        counter.update(model.balance)
-      } else {
-        counter.update(model.balance)
-      }
     }
   },
-  bindings: {
-    moment: function (attr) {
-      this.bind(attr, function (model, node) {
-        var format = node.getAttribute('format')
-        node.textContent = moment(model[attr]).format(format)
-      })
-    }
-  },
-  filters: {
-    integer: function (val) {
-      if (!val) return 0
-      return parseInt(val, 10)
+  renderCounter: function (model, node) {
+    if (!this.counter) {
+      var counter = this.counter = new Counter
+      node.appendChild(counter.el)
+      counter.digits(5)
+      counter.update(model.balance)
+    } else {
+      this.counter.update(model.balance)
     }
   }
+}
+var bindings = {
+  moment: function (attr) {
+    this.bind(attr, function (model, node) {
+      var format = node.getAttribute('format')
+      node.textContent = moment(model[attr]).format(format)
+    })
+  }
+}
+
+var filters = {
+  integer: function (val) {
+    if (!val) return 0
+    return parseInt(val, 10)
+  }
+}
+var el = document.getElementById('user')
+Reactive(el, user, {
+  delegate: delegate,
+  bindings: bindings,
+  filters: filters
 })
+
