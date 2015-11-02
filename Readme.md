@@ -8,11 +8,9 @@
 
 [Web site](http://chemzqm.github.io/reactive-lite/)
 
-You may have to install `model-component` (a minimal event model) by:
+Reactive-lite is opinionated, it works with simple event model which should auto emit change event on value set.  [the explaination](http://chemzqm.github.io/reactive-lite/interpolation#how-works)
 
-    npm install model-component
-
-to make it works, [the explaination](http://chemzqm.github.io/reactive-lite/interpolation#how-works)
+[model-component](https://github.com/chemzqm/model) is a minimal event model, it's a peerDependency of reactive-lite by now.
 
 ## Features
 
@@ -41,7 +39,7 @@ to make it works, [the explaination](http://chemzqm.github.io/reactive-lite/inte
 ``` js
 var reactive = require('reactive-lite')
 var el = document.getElementById('user')
-var Model = require('model')
+var Model = require('model-component')
 var User = Model('User')
   .attr('first')
   .attr('last')
