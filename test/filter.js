@@ -82,19 +82,19 @@ describe('#filter', function () {
     })
 
     it('should be currency without decimal', function () {
-      assert.equal(filter.currency(0), '0')
-      assert.equal(filter.currency('0'), '0')
-      assert.equal(filter.currency('123'), '123')
-      assert.equal(filter.currency('1245'), '1,245')
-      assert.equal(filter.currency('-1245'), '-1,245')
-      assert.equal(filter.currency('12222.345'), '12,222')
+      assert.equal(filter.currency(0, 0), '0')
+      assert.equal(filter.currency('0', 0), '0')
+      assert.equal(filter.currency('123', 0), '123')
+      assert.equal(filter.currency('1245', 0), '1,245')
+      assert.equal(filter.currency('-1245', 0), '-1,245')
+      assert.equal(filter.currency('12222.345', 0), '12,222')
     })
 
     it('should be currency with decimal', function () {
-      assert.equal(filter.currency('0', true), '0.00')
-      assert.equal(filter.currency('123', true), '123.00')
-      assert.equal(filter.currency('-1245', true), '-1,245.00')
-      assert.equal(filter.currency('12222.345', true), '12,222.34')
+      assert.equal(filter.currency('0', 2), '0.00')
+      assert.equal(filter.currency('123'), '123.00')
+      assert.equal(filter.currency('-1245'), '-1,245.00')
+      assert.equal(filter.currency('12222.345'), '12,222.34')
     })
   })
 

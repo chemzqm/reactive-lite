@@ -1,3 +1,6 @@
+### 0.4.0
+* improve filter currency, change default precision to 2
+
 ### 0.3.5
 * add model-component ad peerDependency
 
