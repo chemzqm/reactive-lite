@@ -1,3 +1,6 @@
+### 0.3.5
+* add model-component ad peerDependency
+
 ### 0.3.4
 * allow `\n` and `"` in interpolation
 * add `data-skip` for exclude parsing for specific element
