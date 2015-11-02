@@ -1,3 +1,7 @@
+### 0.3.4
+* allow `\n` and `"` in interpolation
+* add `data-skip` for exclude parsing for specific element
+
 ### 0.3.3
 * allow custom binding names starts not with `data-`
 * fix interpolation not works with `\n` charactor
