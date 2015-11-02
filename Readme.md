@@ -8,8 +8,11 @@
 
 [Web site](http://chemzqm.github.io/reactive-lite/)
 
-TODO:
-* Some examples
+You may have to install `model-component` (a minimal event model) by:
+
+    npm install model-component
+
+to make it works, [the explaination](http://chemzqm.github.io/reactive-lite/interpolation#how-works)
 
 ## Features
 
