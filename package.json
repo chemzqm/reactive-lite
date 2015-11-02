@@ -19,6 +19,9 @@
   "bugs": {
     "url": "https://github.com/chemzqm/reactive-lite/issues"
   },
+	"peerDependencies": {
+    "model-component": "1.x"
+  },
   "homepage": "https://github.com/chemzqm/reactive-lite#readme",
   "devDependencies": {
     "component-counter": "^1.1.0",
