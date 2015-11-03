@@ -1,3 +1,6 @@
+### 0.4.1
+* fix doc
+
 ### 0.4.0
 * improve filter currency, change default precision to 2
 
