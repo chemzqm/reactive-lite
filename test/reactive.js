@@ -139,29 +139,6 @@ describe('#Reactive', function () {
     })
   })
 
-  describe('.checkModel', function () {
-    it('should throw', function () {
-      var r = new Reactive(el, {})
-      var err
-      try {
-        r.checkModel({})
-      } catch(e) {
-        err = e
-      }
-      assert(!!err)
-    })
-
-    it('should not throw', function () {
-      var r = new Reactive(el, {})
-      var err
-      try {
-        r.checkModel(model)
-      } catch(e) {
-        err = e
-      }
-      assert(!err)
-    })
-  })
 
   describe('.remove', function () {
     it('should remove node', function () {

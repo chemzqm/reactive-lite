@@ -167,17 +167,6 @@ describe('#util', function () {
       var res = util.parseFilters(s, bindings, fns)
       assert.equal(res, 'filter.currency(model.first, true, false)')
     })
-
-    it('should throw if argument not boolean string number', function () {
-      var err
-      try {
-        var s = 'first | currency unknown'
-        util.parseFilters(s, bindings, fns)
-      } catch (e) {
-        err = e
-      }
-      assert(!!err.message)
-    })
   })
 
   describe('.parseFilterNames', function () {
