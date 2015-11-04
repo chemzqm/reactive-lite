@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/chemzqm/reactive-lite.svg)](http://travis-ci.org/chemzqm/reactive-lite)
 [![Coverage Status](https://coveralls.io/repos/chemzqm/reactive-lite/badge.svg?branch=master&service=github)](https://coveralls.io/github/chemzqm/reactive-lite?branch=master)
+[![Dependency Status](https://david-dm.org/chemzqm/reactive-lite.svg)](https://david-dm.org/chemzqm/reactive-lite)
 [![DOC](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)
 
 [Demo](http://chemzqm.github.io/reactive-lite/demo.html)

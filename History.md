@@ -1,5 +1,9 @@
+### 0.4.4
+* add bind method for bind another model
+* internal refactor
+
 ### 0.4.3
-* Remove check model
+* Remove check model function
 * Remove check for filter args
 
 ### 0.4.2
