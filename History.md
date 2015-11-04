@@ -1,3 +1,11 @@
+### 0.4.3
+* Remove check model
+* Remove check for filter args
+
+### 0.4.2
+* Improve remove method, allow called more than once
+* check if element removed on remove
+
 ### 0.4.1
 * fix doc
 
