@@ -42,20 +42,6 @@ describe('#Reactive', function () {
     })
   })
 
-  describe('.checkModel', function () {
-    it('should not throw if model not have on off function', function () {
-      var err
-      try {
-        Reactive(el, {})
-      } catch (e) {
-        err = e
-      }
-      // assert(/not\sfound/.test(err.message))
-      assert(!err)
-    })
-
-  })
-
   describe('process node', function () {
     it('should interpolate single node', function () {
       el.textContent = '{first}'
