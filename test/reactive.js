@@ -139,8 +139,18 @@ describe('#Reactive', function () {
     })
   })
 
+  describe('.bind()', function () {
+    it('should bind new Model', function () {
+      el.textContent = '{first}'
+      var r = new Reactive(el, model)
+      var newModel = {first: 'kate', age: 35, active: false}
+      emitter(newModel)
+      r.bind(newModel)
+      assert.equal(el.textContent, newModel.first)
+    })
+  })
 
-  describe('.remove', function () {
+  describe('.remove()', function () {
     it('should remove node', function () {
       var count = 0
       var r = new Reactive(el, model)
