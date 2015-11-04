@@ -189,6 +189,30 @@ describe('#Reactive', function () {
       assert(el.parentNode == null)
     })
 
+    it('should should not throw when called more than once', function () {
+      var count = 0
+      var r = new Reactive(el, model)
+      r.on('remove', function () {
+        count++
+      })
+      r.remove()
+      r.remove()
+      assert.equal(count, 1)
+      assert(el.parentNode == null)
+    })
+
+    it('should should not throw when element removed before remove call', function () {
+      var count = 0
+      var r = new Reactive(el, model)
+      r.on('remove', function () {
+        count++
+      })
+      el.parentNode.removeChild(el)
+      r.remove()
+      assert.equal(count, 1)
+      assert(el.parentNode == null)
+    })
+
     it('should not publish event after remove', function () {
       var count = 0
       var r = new Reactive(el, model)
