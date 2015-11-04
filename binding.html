@@ -81,9 +81,7 @@ if you need a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8
   }
 })</code></pre><pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span>&gt;</span>{weight | numberFormat}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p><em>space(s) aside <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">|</code> are optional, just for nice looking</em></p>
 <p>You can pass arguments to your filter ,like:</p>
-<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span>&gt;</span> {attribute | myformat 2 null true 'tobi'}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>The arguments are seperated by space(one or more), there are <strong>only</strong> four types of arguments allowed, including:
-String (wrapped by single/double quote), Number, Boolean, null.  Reactive would throw error if the argument type not
-recogized.  The content inside filter function is filter itself, no dynamic resolve is supported.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span>&gt;</span> {attribute | myformat 2 null true 'tobi'}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><p>The arguments are seperated by space(one or more), you should only use primary values on filter args,  no dynamic resolve is supported.</p>
 <p>Custom filters could also be defined globally:</p>
 <pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">Reactive.createFilter(<span class="string" style="color:#2aa198;">'data-check'</span>, <span class="keyword" style="color:#859900;">function</span>(prop) {
   ...

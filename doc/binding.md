@@ -88,9 +88,7 @@ You can pass arguments to your filter ,like:
 <div> {attribute | myformat 2 null true 'tobi'}</div>
 ```
 
-The arguments are seperated by space(one or more), there are **only** four types of arguments allowed, including:
-String (wrapped by single/double quote), Number, Boolean, null.  Reactive would throw error if the argument type not
-recogized.  The content inside filter function is filter itself, no dynamic resolve is supported.
+The arguments are seperated by space(one or more), you should only use primary values on filter args,  no dynamic resolve is supported.
 
 Custom filters could also be defined globally:
 
