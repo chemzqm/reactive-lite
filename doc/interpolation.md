@@ -114,6 +114,12 @@ You can use filter(s) to format the output in interpolation, eg:
 ```
 the textContent would be uppercase (like: 'TOBI') correspondingly
 
+Another quite useful filter is `nonull, if you don't want `undefined` or `null` to render on your page, you can:
+``` html
+<div id="user"> {first | nonull}</div>
+```
+If `first` is undefined, the result would be an empty string.
+
 Filters can be chained, eg:
 ``` html
 <div id="user"> {first | uppercase | reverse}</div>
