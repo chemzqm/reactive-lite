@@ -4,22 +4,6 @@ var util = require('../lib/util')
 
 describe('#util', function () {
 
-  describe('.toArray', function () {
-    it('should generate array', function () {
-      function test() {
-        var arr = util.toArray(arguments)
-        assert(Array.isArray(arr))
-        assert(arr.length === arguments.length)
-        for (var i = arguments.length - 1; i >= 0; i--) {
-          assert.equal(arr[i], arguments[i])
-        }
-      }
-      test(1, 2, 3)
-      test(1, 2)
-      test(1)
-    })
-  })
-
   describe('.parseBindings', function () {
 
     it('should parse bindings', function () {
@@ -329,74 +313,6 @@ describe('#util', function () {
       var s = '<span>{}</span>'
       s = s.replace(/\{/g, '')
       assert(util.hasInterpolation(s) === false)
-    })
-  })
-
-  describe('.walk', function () {
-    it('should process all the node', function () {
-      var i = 0
-      function create() {
-        i = i + 1
-        var node = document.createElement('div')
-        var l = Math.floor(Math.random()*6)
-        for (var j = 0; j < l; j++) {
-          if (i === 50) break;
-          node.appendChild(create())
-        }
-        return node
-      }
-      var root = create()
-      var count = 0
-      util.walk(root, function (el, next) {
-        i--
-        next()
-      }, function () {
-        count++
-      })
-      assert(i === 0)
-      assert(count === 1)
-    })
-
-    it('should not process the only text node', function () {
-      var el = document.createElement('div')
-      el.textContent = ' {first} '
-      var count = 0
-      util.walk(el, function (node, next, single) {
-        count = count + 1
-        assert(single === true)
-        assert(el === node)
-        next()
-      })
-      assert.equal(count, 1)
-    })
-
-    it('should process text node if sibling element exist', function () {
-      var el = document.createElement('div')
-      el.textContent = ' {first} '
-      el.appendChild(document.createElement('div'))
-      var count = 0
-      util.walk(el, function (node, next, single) {
-        count = count + 1
-        if (node === el) {
-          assert(single === false)
-        }
-        next()
-      })
-      assert.equal(count, 3)
-    })
-  })
-
-  describe('.isFunction', function () {
-    it('should true', function () {
-      var o = { format: function () { } }
-      assert(util.isFunction(o, 'format'))
-    })
-
-    it('should false', function () {
-      var o = { format: 'a' }
-      assert(util.isFunction(o, 'format') === false)
-      delete o.format
-      assert(util.isFunction(o, 'format') === false)
     })
   })
 
