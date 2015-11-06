@@ -3,6 +3,9 @@ dev:
 	@open http://localhost:8080/bundle
 	@webpack-dev-server 'mocha!./test/test_index.js' --inline --hot --devtool eval
 
+size:
+	@webpack index.js bundle.js --json | analyze-bundle-size
+
 example:
 	@open http://localhost:3000/example/index.html
 	@gulp
