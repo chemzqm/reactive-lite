@@ -1,3 +1,6 @@
+### 0.4.5
+* remove unused function
+
 ### 0.4.4
 * add bind method for bind another model
 * internal refactor
