@@ -1,6 +1,6 @@
 {
   "name": "reactive-lite",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "reactive simple works",
   "main": "index.js",
   "scripts": {

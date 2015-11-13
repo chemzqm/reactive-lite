@@ -1,3 +1,6 @@
+### 0.5.0
+* remove tap event, use [component-tap-event](https://github.com/chemzqm/tap-event) to convert function if needed
+
 ### 0.4.5
 * remove unused function
 
