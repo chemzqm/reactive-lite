@@ -21,7 +21,6 @@ Reactive-lite is opinionated, it works with simple event model which should auto
 * Performance concerned, use `textContent` for text interpolation
 * Reusable binding for list of reactive works much faster
 * Easily works with checkbox(es) and select element
-* support correct [tap-event](https://github.com/chemzqm/tap-event)
 
 ## Install
 

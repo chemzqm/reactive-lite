@@ -3,16 +3,6 @@ var assert = require('assert')
 var emitter = require('emitter')
 var Reactive = require('..')
 
-function fire (element, event) {
-  var e = new UIEvent(event, {
-      bubbles: true,
-      cancelable: false,
-      detail: 1
-  })
-  e.touches = [{pageX: 0, pageY: 0}]
-  element.dispatchEvent(e);
-}
-
 describe('#bindings', function () {
 
   var el
@@ -143,29 +133,6 @@ describe('#bindings', function () {
       reactive.remove()
       el.click()
       assert.equal(model.age, age)
-    })
-
-    it('should works with tap event', function (done) {
-      el.setAttribute('on-tap', 'onTap')
-      var fired
-      var view = {
-        onTap: function (e, m) {
-          m.age++
-          fired = true
-          m.emit('change age')
-        }
-      }
-      var reactive = new Reactive(el, model, {delegate: view})
-      var age = model.age
-      fire(el, 'touchstart')
-      setTimeout(function () {
-        fire(el, 'touchend')
-        assert(fired === true)
-        assert(model.age - 1 === age)
-        reactive.remove()
-
-        done()
-      }, 10)
     })
   })
 
