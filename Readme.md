@@ -29,9 +29,9 @@ Reactive-lite is opinionated, it works with simple event model which should auto
 ## Basic
 
 * **interpolation** `<span>{first} {last}</span>`
-* **render** `<div data-render="checkActive" >Show on active</div>` with function like
+* **render** `<div data-render="checkActive" >Show on active</div>`
 * **attr-interpolation** `<a data-href="http://github.com/{uid}">{name}</a>`
-* **event binding** `<button on-click="onBtnClick">click me</button>` with function like
+* **event binding** `<button on-click="onBtnClick">click me</button>`
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
 
 ## Usage
