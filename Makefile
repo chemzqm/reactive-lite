@@ -5,6 +5,12 @@ test:
 
 size:
 	@webpack index.js bundle.js --json | analyze-bundle-size
+	@webpack index.js reactive.js --output-library reactive --output-library-target umd
+	@uglifyjs reactive.js > reactive.min.js
+	@du -h reactive.min.js
+	@gzip reactive.min.js
+	@du -h reactive.min.js.gz
+	@rm reactive.min.js.gz reactive.js
 
 example:
 	@open http://localhost:3000/example/index.html
