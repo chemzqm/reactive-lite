@@ -24,7 +24,6 @@ content (this reference) is preserved to the delegate object to make it self con
 ### Supported events
 
   * `change`
-  * `tap`
   * `touchstart`
   * `touchend`
   * `click`

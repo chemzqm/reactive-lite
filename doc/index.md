@@ -17,8 +17,6 @@
 
   * **Easily selected/checked**  binding for checkbox(es) and select element, see [checked and selected](./checked.html).
 
-  * **Touch support**  `touchstart` `touchend` and correct [tap-event](https://github.com/chemzqm/tap-event) are supported.
-
   * **Reusable config**  can make high level component(like list) render extremely fast, [explanation](./config.html)
 
 
