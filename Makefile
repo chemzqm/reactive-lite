@@ -1,5 +1,5 @@
 
-dev:
+test:
 	@open http://localhost:8080/bundle
 	@webpack-dev-server 'mocha!./test/test_index.js' --inline --hot --devtool eval
 
@@ -10,7 +10,7 @@ example:
 	@open http://localhost:3000/example/index.html
 	@gulp
 
-test:
+test-karma:
 	@./node_modules/.bin/karma start
 
 test-coveralls:
