@@ -2,7 +2,7 @@
   "name": "reactive-lite",
   "version": "0.5.0",
   "description": "reactive simple works",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "make test-coveralls"
   },
