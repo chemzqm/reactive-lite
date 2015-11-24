@@ -1,3 +1,6 @@
+### 0.5.1
+* throw error when model not defined
+
 ### 0.5.0
 * remove tap event, use [component-tap-event](https://github.com/chemzqm/tap-event) to convert function if needed
 
