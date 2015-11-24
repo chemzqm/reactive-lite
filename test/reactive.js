@@ -40,6 +40,16 @@ describe('#Reactive', function () {
       assert(r.model === model)
       assert.equal(r.el, el)
     })
+
+    it('should thorw when model not exist', function () {
+      var err
+      try {
+        Reactive(el, null)
+      } catch (e) {
+        err = e
+      }
+      assert(!!err.message)
+    })
   })
 
   describe('process node', function () {
