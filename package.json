@@ -25,6 +25,7 @@
   "homepage": "https://github.com/chemzqm/reactive-lite#readme",
   "devDependencies": {
     "component-counter": "^1.1.0",
+    "component-tap-event": "^1.0.0",
     "connect-livereload": "^0.5.3",
     "coveralls": "^2.11.4",
     "gulp": "^3.9.0",
@@ -57,7 +58,6 @@
     "array-unique": "^0.2.1",
     "component-emitter": "^1.2.0",
     "component-event": "^0.1.4",
-    "component-tap-event": "^1.0.0",
     "domify": "^1.4.0"
   }
 }
