@@ -20,7 +20,7 @@
     "url": "https://github.com/chemzqm/reactive-lite/issues"
   },
 	"peerDependencies": {
-    "model-component": "1.x"
+    "model-component": ">=1.0.0 <3"
   },
   "homepage": "https://github.com/chemzqm/reactive-lite#readme",
   "devDependencies": {
