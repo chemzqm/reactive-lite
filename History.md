@@ -1,3 +1,11 @@
+### 0.5.4
+
+* use unbindEvents to remove exist binding events
+
+### 0.5.2
+
+* move tap-event to depDependencies
+
 ### 0.5.1
 * throw error when model not defined
 
