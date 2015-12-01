@@ -61,6 +61,10 @@ document.body.appendChild(reactive.el)
 * `option.filters`  contains filters for this reactive instance
 * `option.bindings` contains bindings for this reactive instance
 
+### .bind(model, [withEvent])
+
+Bind new model, exist event handlers would be removed
+
 ### .remove()
 
 Unbind all events and remove `reactive.el`
