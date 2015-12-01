@@ -158,6 +158,27 @@ describe('#Reactive', function () {
       r.bind(newModel)
       assert.equal(el.textContent, newModel.first)
     })
+
+    it('sholud bind new model without event bind again', function () {
+      var count = 0
+      var fired
+      el.innerHTML = '<button on-click="click">{first}</button>'
+      var r = new Reactive(el, model, {
+        delegate: {
+          click: function (e, m) {
+            count++
+            assert.equal(count, 1)
+            assert.equal(m.first, 'kate')
+            fired = true
+          }
+        }
+      })
+      var newModel = {first: 'kate', age: 35, active: false}
+      emitter(newModel)
+      r.bind(newModel)
+      el.querySelector('button').click()
+      assert.equal(fired, true)
+    })
   })
 
   describe('.remove()', function () {
