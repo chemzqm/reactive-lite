@@ -52,7 +52,7 @@ document.body.appendChild(reactive.el)
 ```
 ## API
 
-### Reactive(el, model, option)
+### Reactive(el, model, [option])
 
 * `el` could be element or html template string
 * `model` contains attributes for binding to the element, and emit `change [name]` event for reactive
@@ -70,6 +70,10 @@ Bind new model, exist event handlers would be removed
 Unbind all events and remove `reactive.el`
 
 The [Web site](http://chemzqm.github.io/reactive-lite/) contains full documentation
+
+### Reactive.generateConfig(el, model, [options])
+
+Generate config array by the same arguments as Reactive constructor
 
 ## Check out demo
 
