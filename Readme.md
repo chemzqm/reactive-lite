@@ -1,9 +1,9 @@
 # Reactive-lite
 
-[![Build Status](https://secure.travis-ci.org/chemzqm/reactive-lite.svg)](http://travis-ci.org/chemzqm/reactive-lite)
-[![Coverage Status](https://coveralls.io/repos/chemzqm/reactive-lite/badge.svg?branch=master&service=github)](https://coveralls.io/github/chemzqm/reactive-lite?branch=master)
-[![Dependency Status](https://david-dm.org/chemzqm/reactive-lite.svg)](https://david-dm.org/chemzqm/reactive-lite)
-[![DOC](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)](https://inch-ci.org/github/chemzqm/reactive-lite.svg?branch=master)
+[![NPM version](https://img.shields.io/npm/v/reactive-lite.svg?style=flat-square)](https://www.npmjs.com/package/reactive-lite)
+[![Dependency Status](https://img.shields.io/david/chemzqm/reactive-lite.svg?style=flat-square)](https://david-dm.org/chemzqm/reactive-lite)
+[![Build Status](https://img.shields.io/travis/chemzqm/reactive-lite/master.svg?style=flat-square)](http://travis-ci.org/chemzqm/reactive-lite)
+[![Coverage Status](https://img.shields.io/coveralls/chemzqm/reactive-lite/master.svg?style=flat-square)](https://coveralls.io/github/chemzqm/reactive-lite?branch=master)
 
 [Demo](http://chemzqm.github.io/reactive-lite/demo.html)
 
