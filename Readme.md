@@ -31,6 +31,7 @@ Reactive-lite is an opinionated reactive template engine, it works with simple e
 ## Basic
 
 * **interpolation** `<span>{first} {last}</span>`
+* **filters** `<span>￥{money | currency}</span>`
 * **render** `<div data-render="checkActive" >Show on active</div>`
 * **attr-interpolation** `<a data-href="http://github.com/{uid}">{name}</a>`
 * **event binding** `<button on-click="onBtnClick">click me</button>`
