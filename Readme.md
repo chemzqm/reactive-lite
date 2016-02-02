@@ -9,18 +9,20 @@
 
 [Web site](http://chemzqm.github.io/reactive-lite/)
 
-Reactive-lite is opinionated, it works with simple event model which should auto emit change event on value set.  [the explaination](http://chemzqm.github.io/reactive-lite/interpolation#how-works)
+Reactive-lite is an opinionated reactive template engine, it works with simple event model which should auto emit change event on value set.  [the explaination](http://chemzqm.github.io/reactive-lite/interpolation#how-works)
 
 [model-component](https://github.com/chemzqm/model) is a minimal event model, it's a peerDependency of reactive-lite by now.
 
 ## Features
 
-* Flexible binding fashion, including text-interpolation, and render for different usage
-* Bind attribute (especially `src` `href` `style`) and event handler easily
-* Custom binding and filter API for gobal usage or single reactive instance
-* Performance concerned, use `textContent` for text interpolation
-* Reusable binding for list of reactive works much faster
+* Flexible binding fashion, including `text-interpolation`, `attr-interpolation` and `render function`.
+* Support reusable binding functions and filter functions for different reactive instances.
+* Support config resue between different reactive instances. (makes rendering list components
+  extremely fast, eg: [exgrid](https://github.com/chemzqm/exgrid))
+* Support change model on the fly.
 * Easily works with checkbox(es) and select element
+* Performance concerned, use `textContent` for text interpolation (use
+  `data-html` for render html attribute)
 
 ## Install
 
@@ -33,6 +35,8 @@ Reactive-lite is opinionated, it works with simple event model which should auto
 * **attr-interpolation** `<a data-href="http://github.com/{uid}">{name}</a>`
 * **event binding** `<button on-click="onBtnClick">click me</button>`
 * **checked/selected stat** `<input type="checkbox" name="active" data-checked="active"/>`
+
+`render functions` and `event handler functions` comes from delegate object.
 
 ## Usage
 
@@ -57,23 +61,22 @@ document.body.appendChild(reactive.el)
 * `el` could be element or html template string
 * `model` contains attributes for binding to the element, and emit `change [name]` event for reactive
 * `option` is optional object contains config
-* `option.delegate` contains event handler and render function(s)
-* `option.filters`  contains filters for this reactive instance
-* `option.bindings` contains bindings for this reactive instance
+* `option.delegate` js object contains event handler and render function(s)
+* `option.filters`  js object contains filters functions
+* `option.bindings` js object contains bindings functions
+* `option.config` the config attribute from other reactive instance,
+  supply this option to prevent `el`(element) parsed twice.
 
-### .bind(model, [withEvent])
+### .bind(model)
 
-Bind new model, exist event handlers would be removed
+Bind to a new model, elements would get reacted and event handlers would bind to new
+model.
 
 ### .remove()
 
 Unbind all events and remove `reactive.el`
 
 The [Web site](http://chemzqm.github.io/reactive-lite/) contains full documentation
-
-### Reactive.generateConfig(el, model, [options])
-
-Generate config array by the same arguments as Reactive constructor
 
 ## Check out demo
 
