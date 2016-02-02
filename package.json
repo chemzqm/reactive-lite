@@ -1,6 +1,6 @@
 {
   "name": "reactive-lite",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "reactive simple works",
   "main": "lib/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/chemzqm/reactive-lite/issues"
   },
-	"peerDependencies": {
+  "peerDependencies": {
     "model-component": ">=1.0.0 <3"
   },
   "homepage": "https://github.com/chemzqm/reactive-lite#readme",
