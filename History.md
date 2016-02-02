@@ -1,3 +1,7 @@
+### 0.5.5
+
+* add reprecated tag global static functions
+
 ### 0.5.4
 
 * use unbindEvents to remove exist binding events
