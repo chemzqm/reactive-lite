@@ -1,6 +1,6 @@
 ## Binding
 
-  Binding is used for create reusable function for element and model, there are some build in bindings available, including
+  Binding is used for create reusable function for element render with model properties, there are some build in bindings available, including
 
   * [attribute interpolation](./interpolation.html#attr-interpolation)
   * [data-render](./interpolation.html#data-render)
@@ -32,33 +32,56 @@ var reactive = new Reactive(el, user, {
 })
 ```
 
-The `this.bind` call accept two arguments, first one is the property to react with (could also be array of properties),
+`this.bind` could accept two arguments, first one is the property to react with (could also be array of properties),
 the second argument is the function that would be called when reactive instance init or the model emit a change event with the property in first argument.
 
-Notice that the function `data-check` referred to is reusable, by using the passed arguments, it's not binded to specific model or element.
+Notice that the function `data-check` referred to is reusable, by using the passed arguments, it's not tied to specific model or element.
 
-The custom binding could also be defined globally.  You can create a `data-sum` binding like this:
+---
+
+If you're using [chemzqm/model](https://github.com/chemzqm/model), you can make use `$stat` property to check if model id dirty, for example:
+
+``` html
+<button data-dirty>Save</button>
+```
 
 ``` js
-var Reactive = require('reactive-lite')
-Reactive.createBinding('data-sum', function(prop) {
-  var arr = prop.split(',')
-  this.bind(arr, function(model, el) {
-    var res = arr.reduce(function(pre, v) {
-        return pre + Number(v)
-    }, 0)
-    el.textContent = res
-  })
+var user = new User(...)
+var reactive = new Reactive(el, user, {
+  bindings: {
+    "data-dirty": function () {
+      //'change $stat' emitted on model status change
+      this.bind('$stat', function (model, el) {
+        el.disabled = !!model.changed()
+      })
+    }
+  }
 })
 ```
 
-And use it like:
+---
+
+You can use `bindAll` method to react all properties change, for example:
+
 ``` html
-<div data-sum="x,y,z"></div>
+<div id="log" data-change></div>
 ```
 
-
-To avoid unnecessary mistakes, the global binding could not override the default bindings.
+``` js
+var user = new User(...)
+var reactive = new Reactive(el, user, {
+  bindings: {
+    "data-change": function () {
+      //'change' emitted on model whenever property change
+      this.bindAll(function (prop, value, model, el) {
+        var div = document.createElement('div')
+        div.textContent = 'Prop ' + prop + ' changed to ' + value
+        el.appendChild(div)
+      })
+    }
+  }
+})
+```
 
 <h3 id="own-filter">Define you own filter</h3>
 
@@ -89,17 +112,5 @@ You can pass arguments to your filter ,like:
 ```
 
 The arguments are seperated by space(one or more), you should only use primary values on filter args,  no dynamic resolve is supported.
-
-Custom filters could also be defined globally:
-
-``` js
-Reactive.createFilter('data-check', function(prop) {
-  ...
-})
-```
-
-It's recommended not to use global definition, you can have all your filters in one file, when need, require the file and
-merge all of the filters into your reactive instance option.
-
 
   *Next: [events handler](./events.html)*

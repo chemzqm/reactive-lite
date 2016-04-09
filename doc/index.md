@@ -5,7 +5,7 @@
   In order to keep reactive simple, it works on opinionated model emitter, your model have to emit `change prop` event on change
   and the event have to be accepted by `on` and removed by `off` method, one example is [component-model](https://www.npmjs.com/package/model-component)
 
-  For more detail of the opinionated model, check out [how it works](./interpolation#how-works)
+  For more detail of the opinionated model, check out [how it works](./interpolation.html#how-works)
 
 ### Basic Features
 

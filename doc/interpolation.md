@@ -45,7 +45,7 @@ user.fullname = function() {
 The function result will be rendered and the textContent would react the change of `first` and `last` attributes.
 
 [](#data-html)
-**Notice** that for performance, text interpolation use `el.textContent` for rendering, you can use `data-html` to render html, like:
+**Notice** that for performance and security, text interpolation use `el.textContent` for rendering, you can use `data-html` to render html, like:
 
 ``` html
 <div data-html="description"></div>
@@ -59,14 +59,16 @@ You can also make the binding reusable by [create a binding](./binding.html#own-
 
 <h3 id="how-works">How does the interpolation works?</h3>
 
-It just generate functions for each interpolation, for the interpolation `{first}` ,the function would be:
+Reactive-lite would generate functions for each interpolation, for the interpolation `{first}` ,the function would be:
+
 ``` js
 function (model) {
   return model.first
 }
 ```
 
-For function `fulllname`, the function is:
+For interpolation `fulllname`, the function is:
+
 ``` js
 function (model) {
   return model.fullname()
@@ -75,13 +77,14 @@ function (model) {
 The only thing have to do is prefix the attribute with `model.`
 
 For the interpolation with filter like `first | uppercase`, just wrap the result like:
+
 ``` js
 function (model, filter) {
   return filter.uppercase(model.first)
 }
 ```
 
-Parsing the reactive attributes from function is also quite simple, just find the function and `toString()`, by
+The logic of parsing reactive attributes from function is also quite simple, just find the function and `toString()`, by
 using a regex `/\bthis\.([\w_$]+)\b(?!([\w$_]|\s*\())`, it can get all the attributes used by `this.attribute`.
 
 For the attribute used by the form `this.['attribute']`, reactive would not be noticed.
