@@ -224,6 +224,34 @@ describe('#binding', function () {
     })
   })
 
+  describe('.bindAll', function() {
+    it('should bind all properties change with function', function () {
+      var reactive = new Reactive(el, model)
+      var binding = new Binding(reactive)
+      var count = 0
+      binding.bindAll(function (name, value, m, node) {
+        if (count == 0) {
+          assert.equal(name, 'first')
+          assert.equal(value, 'capture')
+        } else {
+          assert.equal(name, 'last')
+          assert.equal(value, 'cook')
+        }
+        assert.equal(node, el)
+        assert.equal(m, model)
+        count++
+      })
+      binding.active(el)
+      assert(count === 0)
+      model.first = 'capture'
+      model.emit('change', 'first', 'capture')
+      assert(count === 1)
+      model.first = 'cook'
+      model.emit('change', 'last', 'cook')
+      assert(count === 2)
+    })
+  })
+
   describe('.parseFunctionBindings', function () {
     it('should parse function bindings', function () {
       model.fullname = function () {
